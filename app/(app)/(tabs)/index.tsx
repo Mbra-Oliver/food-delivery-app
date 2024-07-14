@@ -1,0 +1,75 @@
+import FoodCardList from "@/components/FoodCardList";
+import OrderCoupon from "@/components/OrderCoupon";
+import SearchInput from "@/components/SearchInput";
+import SmallTuileCategory from "@/components/SmallTuileCategory";
+import UserProfile from "@/components/UserProfile";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  SafeAreaView,
+  StatusBar,
+  KeyboardAvoidingView,
+  Pressable,
+} from "react-native";
+
+const DATAS = [1, 2, 3, 4, 5, 6, 7, 8];
+
+export default function HomeScreen() {
+  return (
+    <SafeAreaView style={styles.root} className="bg-white">
+      <StatusBar />
+      <View className="mt-10 gap-4 px-4 mb-4">
+        <UserProfile />
+        <SearchInput />
+
+        <OrderCoupon />
+      </View>
+      <ScrollView
+        className="px-4"
+        showsVerticalScrollIndicator={false}
+        contentContainerClassName=" "
+      >
+        <View className="flex-row flex-wrap justify-between gap-3">
+          {DATAS.map((item) => (
+            <SmallTuileCategory key={item} />
+          ))}
+        </View>
+
+        <View>
+          <FoodCardList />
+          <FoodCardList />
+          <FoodCardList />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  header: {
+    flex: 1,
+  },
+
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  stepContainer: {
+    gap: 8,
+    marginBottom: 8,
+  },
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: "absolute",
+  },
+});
