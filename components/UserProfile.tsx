@@ -5,9 +5,10 @@ import { AuthContext } from "@/helpers/providers/AppProviders";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoadingAreaIndicator from "./UI/LoadingAreaIndicator";
 import * as SecureStore from "expo-secure-store";
+import { IUser } from "@/interfaces/IUser";
 
 const UserProfile = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
     const fetchUserData = async () => {
