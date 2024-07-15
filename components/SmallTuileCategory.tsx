@@ -1,21 +1,20 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 
-const SmallTuileCategory = () => {
+const SmallTuileCategory = ({ categorie }: { categorie: any }) => {
   return (
-    <TouchableOpacity className="rounded-md bg-[#f3f2f2] p-4 items-center justify-center gap-2">
-      <Image
-        source={{
-          uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGmw9P3crYJSEBIJEcZnXEemWDWKulvXv7rw&s",
-        }}
-        resizeMode="cover"
-        style={{
-          aspectRatio: 4 / 3,
-        }}
-        className="w-12 h-12 rounded-md"
-      />
+    <TouchableOpacity className="rounded-md bg-[#f7f7f7] p-2 items-center justify-center gap-2">
+      <View className=" bg-white flex items-center justify-center rounded-full overflow-hidden p-4">
+        <Image
+          source={{
+            uri: `https://cdn-icons-png.flaticon.com/128/4058/4058751.png`,
+          }}
+          resizeMode="contain"
+          className="w-10 h-10 rounded-full"
+        />
+      </View>
 
-      <Text>Pizza</Text>
+      <Text className="text-center font-bold">{categorie.name}</Text>
     </TouchableOpacity>
   );
 };

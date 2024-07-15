@@ -1,4 +1,5 @@
 import FoodCardList from "@/components/FoodCardList";
+import FoodCategoriesList from "@/components/FoodCategoriesList";
 import OrderCoupon from "@/components/OrderCoupon";
 import SearchInput from "@/components/SearchInput";
 import SmallTuileCategory from "@/components/SmallTuileCategory";
@@ -32,15 +33,9 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerClassName=" "
       >
-        <View className="flex-row flex-wrap justify-between gap-3">
-          {DATAS.map((item) => (
-            <SmallTuileCategory key={item} />
-          ))}
-        </View>
+        <FoodCategoriesList />
 
         <View>
-          <FoodCardList />
-          <FoodCardList />
           <FoodCardList />
         </View>
       </ScrollView>

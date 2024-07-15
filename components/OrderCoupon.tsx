@@ -2,10 +2,21 @@ import { View, Text, Pressable } from "react-native";
 import React from "react";
 import * as SecureStore from "expo-secure-store";
 import { Redirect, router } from "expo-router";
+import { showFlashMessage } from "@/helpers/alertMessage";
 const OrderCoupon = () => {
   const test = async () => {
-    const result = await SecureStore.deleteItemAsync("FOOD_USER_TOKEN");
-    return router.replace("/");
+    try {
+      await SecureStore.deleteItemAsync("FOOD_USER_TOKEN");
+      await SecureStore.deleteItemAsync("FOOD_USER");
+      showFlashMessage("success", "Vous vous êtes déconnecté");
+      return router.replace("/auth/login");
+    } catch (error) {
+      // Handle errors from SecureStore.deleteItemAsync
+      console.error("Error deleting items from SecureStore:", error);
+      // Optionally show an error message
+      showFlashMessage("error", "Erreur lors de la déconnexion");
+      // Handle or log the error as needed
+    }
   };
 
   return (

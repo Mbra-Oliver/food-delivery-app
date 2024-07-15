@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import * as SecureStore from "expo-secure-store";
-import { router } from "expo-router"; // Ensure this import is correct based on your router library
+import { router } from "expo-router";
 
 // Define types
 type AuthContextType = {
@@ -43,8 +43,8 @@ const userAuth = (state: StateType, action: ActionType): StateType => {
     case "CHECK_AUTH_STATUS":
       return { ...state };
     case "LOG_USER":
-      SecureStore.setItem("FOOD_USER_TOKEN", action.payload.token);
-      SecureStore.setItem("FOOD_USER", JSON.stringify(action.payload.user));
+      SecureStore.setItemAsync("FOOD_USER_TOKEN", action.payload.token);
+      SecureStore.setItemAsync("user", action.payload.user);
       return {
         ...state,
         isLogged: true,
@@ -77,14 +77,16 @@ export const UserAuthProvider = ({ children }: Props) => {
       setIsLoading(true);
       try {
         const token = await SecureStore.getItemAsync("FOOD_USER_TOKEN");
-        const user = await SecureStore.getItemAsync("FOOD_USER");
+        const user = await SecureStore.getItemAsync("user");
 
-        if (token) {
+        if (token && user) {
+          const parsedUser = JSON.parse(user);
+
           authDispatch({
             type: "LOG_USER",
             payload: {
               token,
-              user,
+              user: JSON.stringify(parsedUser),
             },
           });
         } else {
@@ -104,7 +106,7 @@ export const UserAuthProvider = ({ children }: Props) => {
   const handleLogout = async () => {
     console.log(isLoading);
     try {
-      await SecureStore.deleteItemAsync("FOOD_USER_TOKEN");
+      await SecureStore.deleteItemAsync("user");
       authDispatch({ type: "DISCONNECT_USER" });
 
       router.replace("/auth/login");

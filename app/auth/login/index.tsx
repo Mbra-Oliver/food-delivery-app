@@ -8,9 +8,9 @@ import { router } from "expo-router";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { AuthContext } from "@/helpers/providers/AppProviders";
-import { logUser } from "@/services/user.services";
 
 import { showFlashMessage } from "@/helpers/alertMessage";
+import { logUser } from "@/services/user.services";
 const validationSchema = yup.object().shape({
   email: yup
     .string()
@@ -37,14 +37,13 @@ const index = () => {
 
       const result = await logUser(dataSend);
 
-      console.log(result);
       if (!result) {
         setErrorEmail("Information de compte non reconnu");
       }
       const resultData = result.data;
 
       if (result.status_code === 200) {
-        handleLogin(resultData.token, resultData.user);
+        handleLogin(resultData.token, JSON.stringify(resultData.user));
         router.replace({
           pathname: "/(tabs)",
         });
@@ -56,7 +55,6 @@ const index = () => {
         setErrorEmail(result.message.email);
       }
     } catch (error) {
-      console.log(error);
       setErrorEmail(
         "une erreur est survenue lors de la connexion a votre compte"
       );
@@ -81,7 +79,7 @@ const index = () => {
       )}
 
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "lemmsyoliver@gmail.com", password: "azerty" }}
         validationSchema={validationSchema}
         onSubmit={(values) => handleSubmit(values)}
         className="mt-5 gap-4 w-full"

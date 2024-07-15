@@ -1,8 +1,8 @@
-import { showMessage } from "react-native-flash-message";
+import { MessageType, showMessage } from "react-native-flash-message";
 
-export function showFlashMessage(type, message) {
+export function showFlashMessage(type: MessageType, message: string) {
   showMessage({
-    message: "Bon retour",
-    type: "success",
+    message: message,
+    type: type,
   });
 }
