@@ -16,8 +16,6 @@ import {
   Pressable,
 } from "react-native";
 
-const DATAS = [1, 2, 3, 4, 5, 6, 7, 8];
-
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.root} className="bg-white">
@@ -26,7 +24,7 @@ export default function HomeScreen() {
         <UserProfile />
         <SearchInput />
 
-        <OrderCoupon />
+        {/* <OrderCoupon /> */}
       </View>
       <ScrollView
         className="px-4"

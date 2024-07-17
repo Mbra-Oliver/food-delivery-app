@@ -76,7 +76,7 @@ const index = () => {
       const result = await saveUser(dataSend);
       const resultData = result.data;
       if (result.status_code === 201) {
-        handleLogin(resultData.token, resultData.user);
+        handleLogin(resultData.token, JSON.stringify(resultData.user));
         router.replace({
           pathname: "/(tabs)",
         });

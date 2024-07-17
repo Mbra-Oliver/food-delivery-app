@@ -31,4 +31,22 @@ axiosInstance.interceptors.request.use(
   }
 );
 
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401) {
+      try {
+        await SecureStore.deleteItemAsync("FOOD_USER_TOKEN");
+        // Optionally, you can redirect to login or handle the logout process here
+      } catch (deleteError) {
+        console.error("Error deleting token:", deleteError);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default axiosInstance;

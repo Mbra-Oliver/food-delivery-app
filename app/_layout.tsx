@@ -15,6 +15,7 @@ import {
   AuthContext,
   UserAuthProvider,
 } from "@/helpers/providers/AppProviders";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -39,8 +40,10 @@ export default function RootLayout() {
 
   return (
     <UserAuthProvider>
-      <Slot />
-      <FlashMessage position="bottom" />
+      <SafeAreaProvider>
+        <Slot />
+        <FlashMessage position="bottom" />
+      </SafeAreaProvider>
     </UserAuthProvider>
   );
 }
