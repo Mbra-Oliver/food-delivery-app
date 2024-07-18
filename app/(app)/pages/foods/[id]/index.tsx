@@ -1,14 +1,48 @@
 import { View, Text, Image, Pressable, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FoodInformationIconText from "@/components/Foods/FoodInformationIconText";
 import { AntDesign } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { showFlashMessage } from "@/helpers/alertMessage";
 import FoodOrderQuantity from "@/components/Foods/FoodOrderQuantity";
 import AddToCartButton from "@/components/Foods/AddToCartButton";
+import LoadingAreaIndicator from "@/components/UI/LoadingAreaIndicator";
+import { IFood } from "@/interfaces/IFood";
+import { getOneFood } from "@/services/foods.services";
 
 const index = () => {
+  const { id } = useLocalSearchParams();
+
+  const [food, setFood] = useState<IFood>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  if (!id) return;
+  useEffect(() => {
+    const fetchFood = () => {
+      setLoading(true);
+      getOneFood(+id).then((response) => {
+        if (response.status_code === 200) {
+          setFood(response.data);
+
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      });
+    };
+
+    fetchFood();
+  }, []);
+
+  if (loading) {
+    return <LoadingAreaIndicator />;
+  }
+
+  if (!food) {
+    return;
+  }
+
   return (
     <View className="flex-1 bg-[#2a2d32]">
       <StatusBar style="light" />
@@ -53,7 +87,7 @@ const index = () => {
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text className="font-bold text-3xl text-center" numberOfLines={2}>
-            Food Name here
+            {food.name}
           </Text>
 
           <View className="flex-row gap-2 items-center justify-center mt-4 mb-4">
@@ -67,18 +101,12 @@ const index = () => {
 
           <View>
             <Text numberOfLines={20} className="text-xl text-gray-600">
-              On sait depuis longtemps que travailler avec du texte lisible et
-              contenant du sens est source de distractions, et empêche de se
-              concentrer sur la mise en page elle-même. L'avantage du Lorem
-              Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.'
-              est qu'il possède une distribution de lettres plus ou moins
-              normale, et en tout cas comparable avec celle du français
-              standard.{" "}
+              {food.description}
             </Text>
           </View>
 
           <View className="pt-10 flex-row justify-between  gap-4 bottom-0 ">
-            <AddToCartButton />
+            <AddToCartButton foodData={food} />
           </View>
         </ScrollView>
       </View>
