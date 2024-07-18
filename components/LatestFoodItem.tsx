@@ -11,24 +11,24 @@ const LatestFoodItem = ({ food }: { food: IFood }) => {
       className=" bg-white border border-gray-100 rounded-xl"
       onPress={() =>
         router.navigate({
-          pathname: "/foods/[id]",
+          pathname: "/pages/foods/[id]",
           params: { id: food.id },
         })
       }
     >
       <Image
         source={{
-          uri: `https://ui-avatars.com/api/?background=48cd64&color=fff&name=${food.name}`,
+          uri: `https://www.inspiredtaste.net/wp-content/uploads/2023/11/Fluffy-Spanish-Rice-1-1200.jpg`,
         }}
         resizeMode="cover"
-        style={{ aspectRatio: 4 / 3 }}
-        className="rounded-tr-lg rounded-tl-lg"
+        className="rounded-tr-lg rounded-tl-lg w-full h-48"
       />
 
       <View className="p-4 gap-3 ">
         <View className="flex-row items-center gap-1">
-          <Text className="font-bold text-xl">{food.restaurant.name}-</Text>
-          <Text className="font-bold text-xl">{food.name}</Text>
+          <Text className="font-bold text-xl" numberOfLines={4}>
+            {food.restaurant.name}- {food.name}
+          </Text>
         </View>
 
         <Text className="text-md">{food.description}</Text>

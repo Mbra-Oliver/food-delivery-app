@@ -16,6 +16,7 @@ import {
   UserAuthProvider,
 } from "@/helpers/providers/AppProviders";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { CartContextProvider } from "@/helpers/providers/CartContextProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -40,10 +41,12 @@ export default function RootLayout() {
 
   return (
     <UserAuthProvider>
-      <SafeAreaProvider>
-        <Slot />
-        <FlashMessage position="bottom" />
-      </SafeAreaProvider>
+      <CartContextProvider>
+        <SafeAreaProvider>
+          <Slot />
+          <FlashMessage position="bottom" />
+        </SafeAreaProvider>
+      </CartContextProvider>
     </UserAuthProvider>
   );
 }

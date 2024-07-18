@@ -11,9 +11,11 @@ const FoodCardList = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchCategories = () => {
+    const fetchCategories = async () => {
       setLoading(true);
-      fetchLatestFood().then((response) => {
+      try {
+        const response = await fetchLatestFood();
+
         if (response.status_code === 200) {
           const items = response.data.items;
           if (items.length > 8) {
@@ -21,12 +23,17 @@ const FoodCardList = () => {
           } else {
             setFoods(items);
           }
-
-          setLoading(false);
         } else {
-          setLoading(false);
+          throw new Error(
+            `Failed to fetch latest food: ${response.status_code}`
+          );
         }
-      });
+      } catch (error) {
+        console.error("Error fetching latest food:", error);
+        // Optionally, you can set an error state or handle it in another way
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchCategories();

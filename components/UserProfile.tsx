@@ -6,9 +6,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoadingAreaIndicator from "./UI/LoadingAreaIndicator";
 import * as SecureStore from "expo-secure-store";
 import { IUser } from "@/interfaces/IUser";
+import { CartContext } from "@/helpers/providers/CartContextProvider";
 
 const UserProfile = () => {
   const [user, setUser] = useState<IUser>();
+  const { items } = useContext(CartContext);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,7 +46,7 @@ const UserProfile = () => {
           className="h-16 w-16 rounded-full"
         />
         <View className=" gap-2">
-          <Text> Adresse de livraison</Text>
+          <Text>{items.length} Adresse de livraison</Text>
           <View className="flex-row items-center gap-1">
             <Ionicons name="location" size={18} color="black" />
             <Text className="font-bold text-xl">Adresse non définie</Text>

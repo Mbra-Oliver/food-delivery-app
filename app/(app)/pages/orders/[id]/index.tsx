@@ -5,7 +5,7 @@ import OrderItem from "@/components/Orders/OrderItem";
 import { AntDesign } from "@expo/vector-icons";
 import OrderFoodItem from "@/components/Orders/OrderFoodItem";
 
-const page = () => {
+const index = () => {
   return (
     <SafeAreaView className="flex-1">
       <View className="px-4 mb-32 ">
@@ -53,4 +53,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default index;
