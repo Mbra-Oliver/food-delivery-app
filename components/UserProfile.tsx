@@ -7,6 +7,7 @@ import LoadingAreaIndicator from "./UI/LoadingAreaIndicator";
 import * as SecureStore from "expo-secure-store";
 import { IUser } from "@/interfaces/IUser";
 import { CartContext } from "@/helpers/providers/CartContextProvider";
+import { router } from "expo-router";
 
 const UserProfile = () => {
   const [user, setUser] = useState<IUser>();
@@ -55,7 +56,10 @@ const UserProfile = () => {
       </View>
 
       <View className="flex-row gap-2 items-center">
-        <TouchableOpacity className="border border-gray-900 rounded-md p-2">
+        <TouchableOpacity
+          onPress={() => router.navigate("/pages/cart")}
+          className="border border-gray-200 rounded-md p-2"
+        >
           <Feather name="shopping-cart" size={24} color="gray" />
         </TouchableOpacity>
 

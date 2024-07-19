@@ -1,20 +1,25 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { showFlashMessage } from "@/helpers/alertMessage";
 import { CartContext } from "@/helpers/providers/CartContextProvider";
 import { IFood } from "@/interfaces/IFood";
 
 const AddToCartButton = ({ foodData }: { foodData: IFood }) => {
   const { addItemToCart } = useContext(CartContext);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   let foodAmount: string;
   const addToCart = () => {
+    setDisabled(true);
+
     try {
       addItemToCart(foodData.id);
+
       showFlashMessage("warning", "Produit ajouté au panier");
+      setDisabled(false);
     } catch (e) {
-      console.error("Erreur lors de l'ajout au panier :", e);
       showFlashMessage("danger", "Erreur lors de l'ajout au panier");
+      setDisabled(false);
     }
   };
 
@@ -26,8 +31,9 @@ const AddToCartButton = ({ foodData }: { foodData: IFood }) => {
 
   return (
     <Pressable
+      disabled={disabled}
       onPress={addToCart}
-      className="flex-1 bg-[#53565a] p-4 flex-row justify-center rounded-md items-center"
+      className="flex-1 bg-primary p-4 flex-row justify-center rounded-md items-center"
     >
       <Text className="text-white text-xl ">Ajouter au panier </Text>
       <Text className="text-white text-xl font-bold">{foodAmount}</Text>

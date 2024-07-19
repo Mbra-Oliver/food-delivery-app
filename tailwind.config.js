@@ -10,6 +10,7 @@ module.exports = {
       },
       backgroundColor: {
         primary: "#48cd64",
+        pink: "#feebe2",
       },
     },
   },
