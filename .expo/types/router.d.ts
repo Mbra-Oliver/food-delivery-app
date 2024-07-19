@@ -4,8 +4,8 @@ import type { TextProps, GestureResponderEvent } from 'react-native';
 
 export namespace ExpoRouter {
   type StaticRoutes = `/` | `/(app)/` | `/(app)/(tabs)` | `/(app)/pages/cart` | `/(tabs)` | `/_sitemap` | `/auth/login` | `/auth/register` | `/explore` | `/orders` | `/pages/cart` | `/profile`;
-  type DynamicRoutes<T extends string> = `/(app)/pages/foods/${SingleRoutePart<T>}` | `/(app)/pages/orders/${SingleRoutePart<T>}` | `/pages/foods/${SingleRoutePart<T>}` | `/pages/orders/${SingleRoutePart<T>}`;
-  type DynamicRouteTemplate = `/(app)/pages/foods/[id]` | `/(app)/pages/orders/[id]` | `/pages/foods/[id]` | `/pages/orders/[id]`;
+  type DynamicRoutes<T extends string> = `/(app)/pages/foods/${SingleRoutePart<T>}` | `/(app)/pages/orders/${SingleRoutePart<T>}` | `/(app)/pages/orders/status/${SingleRoutePart<T>}` | `/pages/foods/${SingleRoutePart<T>}` | `/pages/orders/${SingleRoutePart<T>}` | `/pages/orders/status/${SingleRoutePart<T>}`;
+  type DynamicRouteTemplate = `/(app)/pages/foods/[id]` | `/(app)/pages/orders/[id]` | `/(app)/pages/orders/status/[status]` | `/pages/foods/[id]` | `/pages/orders/[id]` | `/pages/orders/status/[status]`;
 
   export type RelativePathString = `./${string}` | `../${string}` | '..';
   export type AbsoluteRoute = DynamicRouteTemplate | StaticRoutes;

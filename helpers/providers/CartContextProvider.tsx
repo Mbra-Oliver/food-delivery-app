@@ -1,16 +1,16 @@
+import { IFood } from "@/interfaces/IFood";
 import { ReactNode, createContext, useReducer } from "react";
 
 interface CartItem {
-  id: number;
-  name: string;
-  price: number;
+  food: IFood;
   quantity: number;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addItemToCart: (id: number) => void;
-  updateItemQuantity: (productId: number, amount: number) => void;
+  addItemToCart: (food: IFood) => void;
+  updateItemQuantity: (foodId: number, amount: number) => void;
+  clearCart: () => void;
 }
 
 type StateType = {
@@ -24,33 +24,33 @@ const initialCartState: { items: CartItem[] } = {
 
 // Actions for the reducer
 type ActionType =
-  | { type: "ADD_ITEM"; payload: number }
-  | { type: "UPDATE_ITEM"; payload: { productId: number; amount: number } };
+  | { type: "ADD_ITEM"; payload: { food: IFood } }
+  | { type: "UPDATE_ITEM"; payload: { foodId: number; amount: number } }
+  | { type: "CLEAR_ITEM" };
 
 //Initialise le contexte
 export const CartContext = createContext<CartContextType>({
   items: [],
-  addItemToCart: (id: number) => {},
-  updateItemQuantity: (productId: number, amount: number) => {},
+  addItemToCart: (food: IFood) => {},
+  updateItemQuantity: (foodId: number, amount: number) => {},
+  clearCart: () => {},
 });
 
 const cartReducer = (state: StateType, action: ActionType) => {
   switch (action.type) {
     case "ADD_ITEM":
-      const { payload: id } = action;
-      console.log(id);
+      const { payload: product } = action;
+
       const existingCartItemIndex = state.items.findIndex(
-        (item) => item.id === id
+        (item) => item.food.id === product.food.id
       );
       if (existingCartItemIndex !== -1) {
-        const updatedItems = [...state.items];
-        updatedItems[existingCartItemIndex].quantity++;
-        return { items: updatedItems };
+        // const updatedItems = [...state.items];
+        // updatedItems[existingCartItemIndex].quantity++;
+        // return { items: updatedItems };
       } else {
         const newItem: CartItem = {
-          id: id,
-          name: "Le produit",
-          price: 400,
+          food: product.food,
           quantity: 1,
         };
         return { items: [...state.items, newItem] };
@@ -59,14 +59,17 @@ const cartReducer = (state: StateType, action: ActionType) => {
       return state;
 
     case "UPDATE_ITEM":
-      const { productId, amount } = action.payload;
+      const { foodId, amount } = action.payload;
+
       const updatedItems = state.items.map((item) =>
-        item.id === productId
+        item.food.id === foodId
           ? { ...item, quantity: item.quantity + amount }
           : item
       );
       return { items: updatedItems.filter((item) => item.quantity > 0) };
 
+    case "CLEAR_ITEM":
+      return { items: [] };
     default:
       return state;
   }
@@ -80,14 +83,25 @@ type Props = {
 export const CartContextProvider = ({ children }: Props) => {
   const [cartState, cartDispatch] = useReducer(cartReducer, initialCartState);
 
-  const handleAddItemToCart = (id: number) => {
-    cartDispatch({ type: "ADD_ITEM", payload: id });
+  const handleAddItemToCart = (food: IFood) => {
+    cartDispatch({
+      type: "ADD_ITEM",
+      payload: {
+        food: food,
+      },
+    });
   };
 
-  const handleUpdateCartItemQuantity = (productId: number, amount: number) => {
+  const handleUpdateCartItemQuantity = (foodId: number, amount: number) => {
     cartDispatch({
       type: "UPDATE_ITEM",
-      payload: { productId, amount },
+      payload: { foodId, amount },
+    });
+  };
+
+  const handleClearCart = () => {
+    cartDispatch({
+      type: "CLEAR_ITEM",
     });
   };
 
@@ -95,6 +109,7 @@ export const CartContextProvider = ({ children }: Props) => {
     items: cartState.items,
     addItemToCart: handleAddItemToCart,
     updateItemQuantity: handleUpdateCartItemQuantity,
+    clearCart: handleClearCart,
   };
 
   return (

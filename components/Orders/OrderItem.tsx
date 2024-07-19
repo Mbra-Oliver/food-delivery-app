@@ -2,7 +2,8 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
-const OrderItem = () => {
+const OrderItem = ({ order }: { order: any }) => {
+  console.log(order.foods);
   const onPress = () => {
     router.navigate({
       pathname: "/orders/[id]",
@@ -16,8 +17,8 @@ const OrderItem = () => {
     >
       <View className="flex flex-row items-center justify-between">
         <View className="gap-2">
-          <Text className="font-bold text-xl">Commande#: N. 585955940</Text>
-          <Text className="text-gray-500">20-Juillet-2024</Text>
+          <Text className="font-bold text-xl">Commande#: N. {order.id}</Text>
+          <Text className="text-gray-500">{order.created_at}</Text>
           <View className="flex-row items-center">
             <MaterialIcons name="attach-money" size={16} color="black" />
             <Text className="text-gray-900 font-bold">30.000 FCFA</Text>
@@ -35,7 +36,7 @@ const OrderItem = () => {
         </View>
       </View>
       <View>
-        <Text className="text-primary">Livré le 21 dec</Text>
+        <Text className="text-primary">{order.status}</Text>
       </View>
     </TouchableOpacity>
   );

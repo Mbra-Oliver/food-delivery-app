@@ -13,7 +13,7 @@ const AddToCartButton = ({ foodData }: { foodData: IFood }) => {
     setDisabled(true);
 
     try {
-      addItemToCart(foodData.id);
+      addItemToCart(foodData);
 
       showFlashMessage("warning", "Produit ajouté au panier");
       setDisabled(false);

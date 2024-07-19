@@ -1,8 +1,16 @@
 import { View, Image, Text } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import FoodOrderQuantity from "./FoodOrderQuantity";
+import { IFood } from "@/interfaces/IFood";
+import { CartContext } from "@/helpers/providers/CartContextProvider";
 
-const CartItem = () => {
+const CartItem = ({ food, quantity }: { food: IFood; quantity: number }) => {
+  const { updateItemQuantity } = useContext(CartContext);
+  const manageQuantity = (value: number) => {
+    updateItemQuantity(food.id, value);
+    console.log("quantite" + quantity);
+  };
+
   return (
     <View className="flex-row items-center justify-between pb-4 border-b border-gray-200">
       <View>
@@ -14,12 +22,15 @@ const CartItem = () => {
           resizeMode="cover"
         />
       </View>
-      <View>
-        <Text className="font-bold text-center text-xl">Food Name</Text>
-        <Text className="text-center mb-3">(Restaurant name)</Text>
-        <FoodOrderQuantity />
+      <View className="justify-center items-center">
+        <Text className="font-bold text-center text-xl">{food.name}</Text>
+        <Text className="text-center mb-3">({food.restaurant.name})</Text>
+        <FoodOrderQuantity
+          onPressQuantity={manageQuantity}
+          quantity={quantity}
+        />
       </View>
-      <Text className="text-bold font-bold text-xl">10.009 FCFA</Text>
+      <Text className="text-bold">{food.price * quantity} FCFA</Text>
     </View>
   );
 };

@@ -6,4 +6,9 @@ export const APP_END_POINTS = {
   foods: {
     single: "mobile/foods",
   },
+
+  orders: {
+    save: "mobile/orders/store",
+    all: "mobile/orders/all",
+  },
 };
