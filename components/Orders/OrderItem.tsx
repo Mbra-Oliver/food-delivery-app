@@ -2,12 +2,17 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { formateDateApi } from "@/constants/formatter";
 const OrderItem = ({ order }: { order: any }) => {
-  console.log(order.foods);
+  const totalPrice = order.foods.reduce(
+    (acc: any, item: any) => acc + item.price,
+    0
+  );
+
   const onPress = () => {
     router.navigate({
-      pathname: "/orders/[id]",
-      params: { id: "1" },
+      pathname: "/pages/orders/[id]",
+      params: { id: order.id },
     });
   };
   return (
@@ -18,10 +23,11 @@ const OrderItem = ({ order }: { order: any }) => {
       <View className="flex flex-row items-center justify-between">
         <View className="gap-2">
           <Text className="font-bold text-xl">Commande#: N. {order.id}</Text>
-          <Text className="text-gray-500">{order.created_at}</Text>
+          <Text className="text-gray-500">
+            {formateDateApi(order.created_at)}
+          </Text>
           <View className="flex-row items-center">
-            <MaterialIcons name="attach-money" size={16} color="black" />
-            <Text className="text-gray-900 font-bold">30.000 FCFA</Text>
+            <Text className="text-gray-900 font-bold">{totalPrice} FCFA</Text>
           </View>
         </View>
         <View>
@@ -35,8 +41,11 @@ const OrderItem = ({ order }: { order: any }) => {
           />
         </View>
       </View>
-      <View>
-        <Text className="text-primary">{order.status}</Text>
+      <View className="flex-1 flex-row">
+        <View className="bg-primary p-1 rounded-md">
+          <Text className="text-black font-bold">Nouvelle commande</Text>
+        </View>
+        <View />
       </View>
     </TouchableOpacity>
   );

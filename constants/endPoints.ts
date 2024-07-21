@@ -10,5 +10,7 @@ export const APP_END_POINTS = {
   orders: {
     save: "mobile/orders/store",
     all: "mobile/orders/all",
+    single: "mobile/orders",
+    changeStatus: "mobile/orders/change-status",
   },
 };

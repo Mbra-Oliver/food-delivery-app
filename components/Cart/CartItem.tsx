@@ -8,7 +8,6 @@ const CartItem = ({ food, quantity }: { food: IFood; quantity: number }) => {
   const { updateItemQuantity } = useContext(CartContext);
   const manageQuantity = (value: number) => {
     updateItemQuantity(food.id, value);
-    console.log("quantite" + quantity);
   };
 
   return (

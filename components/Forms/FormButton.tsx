@@ -6,17 +6,19 @@ const FormButton = ({
   disabled = false,
   onSubmit,
   isSubmitting = false,
+  backgroundColor = "bg-[#48cd64]",
 }: {
   label: string;
   disabled?: boolean;
   onSubmit: () => void;
   isSubmitting: boolean;
+  backgroundColor?: string;
 }) => {
   return (
     <Pressable
       disabled={disabled}
       className={`${
-        disabled ? "bg-[#e8e6e6] border border-gray-300" : "bg-[#48cd64]"
+        disabled ? "bg-[#e8e6e6] border border-gray-300" : backgroundColor
       }  p-4 rounded-full flex-row justify-center gap-2 items-center`}
       onPress={onSubmit}
     >

@@ -104,7 +104,6 @@ export const UserAuthProvider = ({ children }: Props) => {
   }, []);
 
   const handleLogout = async () => {
-    console.log(isLoading);
     try {
       await SecureStore.deleteItemAsync("user");
       authDispatch({ type: "DISCONNECT_USER" });

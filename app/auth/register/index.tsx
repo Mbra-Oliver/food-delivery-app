@@ -89,9 +89,7 @@ const index = () => {
       } else {
         setErrorEmail(result.message.email);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

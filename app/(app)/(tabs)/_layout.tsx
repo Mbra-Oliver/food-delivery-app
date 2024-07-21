@@ -19,7 +19,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: APP_COLORS.main,
         headerShown: false,
       }}
-      initialRouteName="orders/index"
+      initialRouteName="profile/index"
     >
       <Tabs.Screen
         name="index"

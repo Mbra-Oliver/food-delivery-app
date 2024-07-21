@@ -5,10 +5,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import OrderItem from "@/components/Orders/OrderItem";
 import LoadingAreaIndicator from "@/components/UI/LoadingAreaIndicator";
 import { getAllOrders } from "@/services/orders.services";
+import { IOrder } from "@/interfaces/IOrder";
 
 const page = () => {
-  const [orders, setOrders] = useState<Array<any>>([]);
+  const [orders, setOrders] = useState<Array<IOrder>>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isRefresh, setIsRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -29,19 +31,20 @@ const page = () => {
         console.error("Error fetching latest food:", error);
         // Optionally, you can set an error state or handle it in another way
       } finally {
+        setIsRefresh(false);
         setLoading(false);
       }
     };
 
     fetchOrders();
-  }, []);
+  }, [isRefresh]);
 
   if (loading) {
     return <LoadingAreaIndicator />;
   }
 
   const onRefresh = () => {
-    console.log("rafraichir la liste");
+    setIsRefresh(true);
   };
 
   return (
@@ -54,7 +57,7 @@ const page = () => {
           style={{ elevation: 1 }}
           showsVerticalScrollIndicator={false}
           refreshControl={
-            <RefreshControl refreshing={false} onRefresh={onRefresh} />
+            <RefreshControl refreshing={isRefresh} onRefresh={onRefresh} />
           }
         >
           {/* Order Item */}

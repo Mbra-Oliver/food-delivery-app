@@ -15,6 +15,7 @@ export interface IFood {
   description: string;
   price: number;
   status: string;
+  pivot: any;
   restaurant_id: number;
   sub_category_id: number;
   cloud_file_id: null;

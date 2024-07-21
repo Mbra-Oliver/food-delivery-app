@@ -31,13 +31,9 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerClassName=" "
       >
-        <View>
-          <FoodCategoriesList />
-        </View>
+        <FoodCategoriesList />
 
-        <View>
-          <FoodCardList />
-        </View>
+        <FoodCardList />
       </ScrollView>
     </SafeAreaView>
   );

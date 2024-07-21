@@ -26,6 +26,11 @@ const index = () => {
   const { items, clearCart } = useContext(CartContext);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  const totalPrice = items.reduce(
+    (acc, item) => acc + item.food.price * item.quantity,
+    0
+  );
+
   // Définir le type pour items, en utilisant l'interface CartItem par exemple
   const ARRAYS: { id: number; quantity: number }[] = items.map(
     (cartContext: any) => ({
@@ -37,10 +42,11 @@ const index = () => {
   const handleOrder = async () => {
     try {
       setIsSubmitting(true);
-      console.log(ARRAYS);
-      const result = await saveOrder(ARRAYS);
 
-      console.log(result);
+      const result = await saveOrder({
+        items: ARRAYS,
+      });
+
       if (result.status_code === 201) {
         showFlashMessage(
           "success",
@@ -54,9 +60,7 @@ const index = () => {
 
         clearCart();
       }
-    } catch (error: any) {
-      console.log("error", error);
-    }
+    } catch (error: any) {}
   };
 
   if (items.length === 0) return <Empty />;
@@ -71,7 +75,7 @@ const index = () => {
             <Text className="text-2xl uppercase text-center">Votre panier</Text>
           </View>
 
-          <View className="bg-pink border border-gray-100 rounded-md flex justify-center p-4 gap-2 mb-4">
+          <View className="bg-primary border-green-400 rounded-md flex justify-center p-4 gap-2 mb-4">
             <Text>Livraison à</Text>
             <View className="flex-row items-center justify-between">
               <Text className="font-bold text-xl text-black">
@@ -95,6 +99,21 @@ const index = () => {
               quantity={food.quantity}
             />
           ))}
+
+          <View className="gap-2 p-4 bg-gray-100 rounded-sm">
+            <View className="flex-row items-center justify-between">
+              <Text>Commandes</Text>
+              <Text className="text-xl">{totalPrice}</Text>
+            </View>
+            <View className="flex-row items-center justify-between">
+              <Text>Frais livraison</Text>
+              <Text className="text-xl">0</Text>
+            </View>
+            <View className="flex-row items-center justify-between">
+              <Text className="font-bold">Total</Text>
+              <Text className="text-xl font-bold">{totalPrice}</Text>
+            </View>
+          </View>
         </ScrollView>
 
         <View className="absolute pt-10 px-4 flex-row mb-12 justify-between  gap-4 bottom-0 ">
