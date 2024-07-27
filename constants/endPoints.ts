@@ -1,4 +1,8 @@
 export const APP_END_POINTS = {
+  user: {
+    updateAvatar: "mobile/update-avatar",
+  },
+
   foodCategories: "mobile/categories/all",
 
   latestFood: "mobile/foods/latest",

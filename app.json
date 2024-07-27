@@ -39,6 +39,18 @@
         {
           "isAndroidForegroundServiceEnabled": "Allow $(PRODUCT_NAME) to use your location."
         }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Autoriser $(PRODUCT_NAME) à accéder à votre gallerie."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Autoriser $(PRODUCT_NAME) à accéder à votre gallerie pour modifier votre photo de profil."
+        }
       ]
     ],
     "experiments": {

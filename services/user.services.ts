@@ -1,5 +1,6 @@
+import { APP_END_POINTS } from "@/constants/endPoints";
 import axios from "axios";
-
+import * as SecureStore from "expo-secure-store";
 const baseUrl = process.env.EXPO_PUBLIC_API_URL;
 
 export async function saveUser(data: any) {
@@ -22,6 +23,44 @@ export async function saveUser(data: any) {
       throw new Error("Pas de réponse reçue du serveur");
     } else {
       throw new Error(`Erreur lors de la requête : ${error.message}`);
+    }
+  }
+}
+
+export async function updateUserAvatar(binaryString: string) {
+  if (!baseUrl) {
+    throw new Error("L'URL de l'API n'est pas définie");
+  }
+
+  console.log(binaryString);
+
+  try {
+    const token = await SecureStore.getItem("FOOD_USER_TOKEN");
+    const response = await axios.post(
+      `${baseUrl}${APP_END_POINTS.user.updateAvatar}`,
+
+      binaryString,
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.log("erreur message", error.message);
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        throw new Error(`Erreur HTTP ${error.response.status}`);
+      } else if (error.request) {
+        throw new Error("Pas de réponse reçue du serveur");
+      } else {
+        throw new Error(`Erreur lors de la requête : ${error.message}`);
+      }
+    } else {
+      throw new Error(`Erreur inattendue : ${error.message}`);
     }
   }
 }
