@@ -2,6 +2,7 @@ import { APP_END_POINTS } from "@/constants/endPoints";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 const baseUrl = process.env.EXPO_PUBLIC_API_URL;
+import * as FileSystem from "expo-file-system";
 
 export async function saveUser(data: any) {
   if (!baseUrl) {
@@ -27,38 +28,38 @@ export async function saveUser(data: any) {
   }
 }
 
-export async function updateUserAvatar(binaryString: string) {
+export async function updateUserAvatar(uri: string) {
   if (!baseUrl) {
     throw new Error("L'URL de l'API n'est pas définie");
   }
 
-  console.log(binaryString);
-
   try {
-    const token = await SecureStore.getItem("FOOD_USER_TOKEN");
-    const response = await axios.post(
+    const token = await SecureStore.getItemAsync("FOOD_USER_TOKEN");
+
+    const response = await axios.get(uri, { responseType: "blob" });
+
+    const formData = new FormData();
+
+    formData.append("image", response.data);
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+
+      "Content-Type": "multipart/form-data",
+    };
+
+    const responseApi = await axios.post(
       `${baseUrl}${APP_END_POINTS.user.updateAvatar}`,
 
-      binaryString,
+      formData,
 
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      { headers }
     );
 
-    return response.data;
+    return responseApi.data;
   } catch (error: any) {
-    console.log("erreur message", error.message);
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        throw new Error(`Erreur HTTP ${error.response.status}`);
-      } else if (error.request) {
-        throw new Error("Pas de réponse reçue du serveur");
-      } else {
-        throw new Error(`Erreur lors de la requête : ${error.message}`);
-      }
+    if (axios.isAxiosError(error) as any) {
+      throw new Error(`Erreur HTTP ${error.response} : ${error.response}`);
     } else {
       throw new Error(`Erreur inattendue : ${error.message}`);
     }
@@ -79,8 +80,10 @@ export async function logUser(data: any) {
 
     return response.data;
   } catch (error: any) {
+    console.log(error);
+
     if (error.response) {
-      throw new Error(`Erreur HTTP ${error.response.status}`);
+      throw new Error(`Erreur HTTP`);
     } else if (error.request) {
       throw new Error("Pas de réponse reçue du serveur");
     } else {

@@ -40,87 +40,57 @@ const index = () => {
   if (!user) {
     return null; // Peut-être afficher un indicateur de chargement ici
   }
-  // const pickImage = async (fromCamera = false) => {
-  //   try {
-  //     if (fromCamera) {
-  //       const { status } = await ImagePicker.requestCameraPermissionsAsync();
+  const pickImage = async (fromCamera = false) => {
+    try {
+      const permission = fromCamera
+        ? await ImagePicker.requestCameraPermissionsAsync()
+        : await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-  //       if (status !== "granted") {
-  //         alert("Sorry, we need camera permissions to make this work!");
+      const { status } = permission;
 
-  //         return;
-  //       } else {
-  //         let result = await ImagePicker.launchCameraAsync({
-  //           mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      if (status !== "granted") {
+        const message = fromCamera
+          ? "Sorry, we need camera permissions to make this work!"
+          : "Sorry, we need camera roll permissions to make this work!";
 
-  //           allowsEditing: true,
+        alert(message);
 
-  //           aspect: [4, 3],
+        return;
+      }
 
-  //           quality: 1,
-  //         });
+      const imagePickerOptions = {
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
 
-  //         if (!result.canceled) {
-  //           const selectedImage = result.assets[0];
+        allowsEditing: true,
 
-  //           const binaryString = await convertBlobToBinaryString(
-  //             selectedImage.uri
-  //           );
+        aspect: [4, 3] as [number, number],
 
-  //           if (binaryString) {
-  //             const result = await updateUserAvatar(binaryString);
-  //           }
-  //         }
-  //       }
-  //     } else {
-  //       const { status } =
-  //         await ImagePicker.requestMediaLibraryPermissionsAsync();
+        quality: 1,
+      };
 
-  //       if (status !== "granted") {
-  //         alert("Sorry, we need camera roll permissions to make this work!");
+      const result = fromCamera
+        ? await ImagePicker.launchCameraAsync(imagePickerOptions)
+        : await ImagePicker.launchImageLibraryAsync(imagePickerOptions);
 
-  //         return;
-  //       } else {
-  //         let result = await ImagePicker.launchImageLibraryAsync({
-  //           mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      if (!result.canceled) {
+        const selectedImage = result.assets[0];
 
-  //           allowsEditing: true,
+        try {
+          const response = await updateUserAvatar(selectedImage.uri);
+        } catch (error) {
+          console.log(error);
 
-  //           aspect: [4, 3],
-
-  //           quality: 1,
-  //         });
-
-  //         if (!result.canceled) {
-  //           const selectedImage = result.assets[0];
-
-  //           const binaryString = await convertBlobToBinaryString(
-  //             selectedImage.uri
-  //           );
-
-  //           if (binaryString) {
-  //             const result = await updateUserAvatar(binaryString);
-  //           }
-  //         }
-  //       }
-  //     }
-  //   } catch (error) {
-  //     showFlashMessage("danger", "Erreur lors de la sélection de l'image");
-  //   }
-  // };
-
-  // const convertBlobToBinaryString = async (uri: any) => {
-  //   try {
-  //     // Lire le fichier en tant que base64
-  //     const fileBase64 = await FileSystem.readAsStringAsync(uri, {
-  //       encoding: FileSystem.EncodingType.Base64,
-  //     });
-
-  //     return fileBase64;
-  //   } catch (error) {
-  //     console.error("Erreur lors de la conversion en base64 :", error);
-  //   }
-  // };
+          showFlashMessage(
+            "danger",
+            "Erreur lors de la mise à jour de l'avatar"
+          );
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      showFlashMessage("danger", "Erreur lors de la sélection de l'image");
+    }
+  };
 
   return (
     <View className="flex-1 bg-[#2a2d32]">
@@ -133,6 +103,15 @@ const index = () => {
               className="w-14 h-14 rounded-full p-1 bg-[#53565a] justify-center items-center"
             >
               <AntDesign name="arrowleft" size={24} color={"white"} />
+            </Pressable>
+          </View>
+
+          <View>
+            <Pressable
+              onPress={() => pickImage(true)}
+              className="w-14 h-14 rounded-full p-1 bg-[#53565a] justify-center items-center"
+            >
+              <AntDesign name="camera" size={24} color={"white"} />
             </Pressable>
           </View>
         </View>

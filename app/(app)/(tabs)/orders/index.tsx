@@ -6,6 +6,7 @@ import OrderItem from "@/components/Orders/OrderItem";
 import LoadingAreaIndicator from "@/components/UI/LoadingAreaIndicator";
 import { getAllOrders } from "@/services/orders.services";
 import { IOrder } from "@/interfaces/IOrder";
+import { StatusBar } from "expo-status-bar";
 
 const page = () => {
   const [orders, setOrders] = useState<Array<IOrder>>([]);
@@ -49,6 +50,7 @@ const page = () => {
 
   return (
     <SafeAreaView className="flex-1">
+      <StatusBar style="dark" />
       <View className="p-4 mb-4">
         <Text className="text-2xl mb-4 uppercase">Mes commandes</Text>
 
