@@ -19,7 +19,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: APP_COLORS.main,
         headerShown: false,
       }}
-      initialRouteName="explore"
+      initialRouteName="explore/index"
     >
       <Tabs.Screen
         name="index"
@@ -35,7 +35,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="explore/index"
         options={{
           title: "Découvrir",
           tabBarIcon: ({ color, focused }) => (

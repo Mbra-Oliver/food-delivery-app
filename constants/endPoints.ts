@@ -5,7 +5,10 @@ export const APP_END_POINTS = {
 
   foodCategories: "mobile/categories/all",
 
-  latestFood: "mobile/foods/latest",
+  food: {
+    latest: "mobile/foods/latest",
+    allWithCategory: "mobile/foods/all",
+  },
 
   foods: {
     single: "mobile/foods",
