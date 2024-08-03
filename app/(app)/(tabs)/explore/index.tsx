@@ -18,11 +18,24 @@ import { fetchLatestFood, paginateFood } from "@/services/foods.services";
 import { IFood } from "@/interfaces/IFood";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FoodListItem from "@/components/Foods/FoodListItem";
+import { useLocalSearchParams } from "expo-router";
 export default function ExploreIndex() {
   const [categories, setCategories] = useState([]);
   const [foods, setFoods] = useState<Array<IFood>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedCategorieId, setSelectedCategorieId] = useState<any>([]);
+  const { searchParam } = useLocalSearchParams();
+
+  const [search, setSearch] = useState<string | undefined>(undefined);
+  console.log(searchParam);
+
+  useEffect(() => {
+    if (searchParam) {
+      setSearch(searchParam.toString());
+    } else {
+      setSearch(undefined);
+    }
+  }, [searchParam]);
 
   useEffect(() => {
     const fetchCategories = () => {
@@ -30,11 +43,8 @@ export default function ExploreIndex() {
       fetchFoodCategories().then((response) => {
         if (response.status_code === 200) {
           const items = response.data.items;
-          if (items.length > 8) {
-            setCategories(items.slice(1, 9));
-          } else {
-            setCategories(items);
-          }
+
+          setCategories(items);
 
           setLoading(false);
         } else {
@@ -50,7 +60,8 @@ export default function ExploreIndex() {
     const fetchFoods = async () => {
       setLoading(true);
       try {
-        const response = await paginateFood(selectedCategorieId);
+        const response = await paginateFood(selectedCategorieId, search);
+
         if (response.status_code === 200) {
           setFoods(response.data.items);
         } else {
@@ -67,7 +78,7 @@ export default function ExploreIndex() {
     };
 
     fetchFoods();
-  }, [selectedCategorieId]);
+  }, [selectedCategorieId, search]);
 
   if (loading) {
     return <LoadingAreaIndicator />;
@@ -96,12 +107,19 @@ export default function ExploreIndex() {
           </Picker>
         </View>
 
-        <View className="mt-4">
+        {search && (
+          <Text className="mt-4 text-xl">
+            Recherche: <Text className="font-bold">{search}</Text>{" "}
+          </Text>
+        )}
+
+        <View className="mt-4 mb-10">
           <FlatList
             numColumns={2}
             data={foods}
             showsVerticalScrollIndicator={false}
-            columnWrapperClassName="gap-4 mt-4"
+            columnWrapperClassName="gap-4 mt-4 mb-4"
+            contentContainerClassName="pb-20"
             keyExtractor={(item: IFood) => item.id.toString()}
             renderItem={({ item }) => (
               <FoodListItem key={item.id} food={item} />
@@ -112,16 +130,3 @@ export default function ExploreIndex() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-});

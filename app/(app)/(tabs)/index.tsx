@@ -4,16 +4,14 @@ import OrderCoupon from "@/components/OrderCoupon";
 import SearchInput from "@/components/SearchInput";
 import SmallTuileCategory from "@/components/SmallTuileCategory";
 import UserProfile from "@/components/UserProfile";
+import { Stack, useNavigation } from "expo-router";
+import { useEffect } from "react";
 import {
-  Image,
   StyleSheet,
-  Text,
   ScrollView,
   View,
   SafeAreaView,
   StatusBar,
-  KeyboardAvoidingView,
-  Pressable,
 } from "react-native";
 
 export default function HomeScreen() {

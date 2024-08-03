@@ -25,6 +25,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
+
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
               name="home-filled"

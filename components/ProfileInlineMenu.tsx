@@ -3,16 +3,19 @@ import React from "react";
 import { AntDesign, Feather } from "@expo/vector-icons";
 
 const ProfileInlineMenu = ({
-  background,
   text,
   icon,
+  onPress,
 }: {
-  background: string;
   text: string;
   icon: any;
+  onPress?: () => void;
 }) => {
   return (
-    <TouchableOpacity className="flex-row justify-between items-center">
+    <TouchableOpacity
+      onPress={onPress}
+      className="flex-row justify-between items-center"
+    >
       <View className="flex-row items-center gap-4">
         <View className={`bg-gray-200 p-2 rounded-md`}>
           <Feather size={24} name={icon} color={"black"} />

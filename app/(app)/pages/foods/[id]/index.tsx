@@ -43,6 +43,7 @@ const index = () => {
     return;
   }
 
+  const imageUri = `${process.env.EXPO_PUBLIC_STORAGE_URL}${food.default_image}`;
   return (
     <View className="flex-1 bg-[#2a2d32]">
       <StatusBar style="light" />
@@ -79,7 +80,7 @@ const index = () => {
               <Image
                 className=" w-[200] h-[200] border-2 border-[#2a2d32] rounded-full"
                 source={{
-                  uri: "https://www.inspiredtaste.net/wp-content/uploads/2023/11/Fluffy-Spanish-Rice-1-1200.jpg",
+                  uri: imageUri,
                 }}
                 resizeMode="cover"
               />

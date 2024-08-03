@@ -12,11 +12,13 @@ export const fetchLatestFood = async () => {
   }
 };
 
-export const paginateFood = async (categoryId: number) => {
+export const paginateFood = async (categoryId: number, search?: string) => {
   const endPoint =
-    APP_END_POINTS.food.allWithCategory + "?categoryId=" + categoryId;
+    APP_END_POINTS.food.allWithCategory +
+    "?categoryId=" +
+    categoryId +
+    (search && search !== "" ? "&search=" + search : "");
 
-  console.log(endPoint);
   try {
     const response = await axiosInstance.get(endPoint);
     return response.data;

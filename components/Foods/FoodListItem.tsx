@@ -18,6 +18,8 @@ const FoodListItem = ({ food }: { food: IFood }) => {
     }
   };
 
+  const imageUri = `${process.env.EXPO_PUBLIC_STORAGE_URL}${food.default_image}`;
+
   return (
     <TouchableOpacity
       className="flex-1 justify-center items-center p-2 gap-4 bg-white m-1 rounded-xl border border-gray-100"
@@ -32,11 +34,11 @@ const FoodListItem = ({ food }: { food: IFood }) => {
       <View className="relative w-full items-center ">
         <Image
           source={{
-            uri: "https://cdn-icons-png.freepik.com/256/2276/2276931.png?ga=GA1.1.255990895.1717282553&semt=ais_hybrid",
+            uri: imageUri,
           }}
-          resizeMode="contain"
-          className="w-full h-20"
-          style={{ aspectRatio: 4 / 3 }}
+          resizeMode="cover"
+          className=" h-40 rounded-md"
+          style={{ aspectRatio: 4 / 4 }}
         />
 
         <Pressable

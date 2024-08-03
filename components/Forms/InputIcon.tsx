@@ -3,6 +3,7 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
 const TextInputIcon = ({
+  disabledField,
   label,
   iconName,
   secure,
@@ -12,6 +13,7 @@ const TextInputIcon = ({
   value,
   name,
 }: {
+  disabledField?: boolean;
   label: string;
   iconName: any;
   secure?: boolean;
@@ -33,6 +35,7 @@ const TextInputIcon = ({
           onChangeText={onChange(name)}
           onBlur={onBlur(name)}
           value={value}
+          readOnly={disabledField}
         />
       </View>
     </>

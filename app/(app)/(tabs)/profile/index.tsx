@@ -17,6 +17,7 @@ import * as FileSystem from "expo-file-system";
 import mime from "mime";
 import { IUser } from "@/interfaces/IUser";
 import * as SecureStore from "expo-secure-store";
+import FormButton from "@/components/Forms/FormButton";
 
 const index = () => {
   const [user, setUser] = useState<IUser>();
@@ -40,55 +41,72 @@ const index = () => {
   if (!user) {
     return null; // Peut-être afficher un indicateur de chargement ici
   }
-  const pickImage = async (fromCamera = false) => {
+  // const pickImage = async (fromCamera = false) => {
+  //   try {
+  //     const permission = fromCamera
+  //       ? await ImagePicker.requestCameraPermissionsAsync()
+  //       : await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+  //     const { status } = permission;
+
+  //     if (status !== "granted") {
+  //       const message = fromCamera
+  //         ? "Sorry, we need camera permissions to make this work!"
+  //         : "Sorry, we need camera roll permissions to make this work!";
+
+  //       alert(message);
+
+  //       return;
+  //     }
+
+  //     const imagePickerOptions = {
+  //       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+
+  //       allowsEditing: true,
+
+  //       aspect: [4, 3] as [number, number],
+
+  //       quality: 1,
+  //     };
+
+  //     const result = fromCamera
+  //       ? await ImagePicker.launchCameraAsync(imagePickerOptions)
+  //       : await ImagePicker.launchImageLibraryAsync(imagePickerOptions);
+
+  //     if (!result.canceled) {
+  //       const selectedImage = result.assets[0];
+
+  //       try {
+  //         const response = await updateUserAvatar(selectedImage.uri);
+  //       } catch (error) {
+  //         console.log(error);
+
+  //         showFlashMessage(
+  //           "danger",
+  //           "Erreur lors de la mise à jour de l'avatar"
+  //         );
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     showFlashMessage("danger", "Erreur lors de la sélection de l'image");
+  //   }
+  // };
+
+  const goProfileEdit = () => {
+    router.navigate("/pages/profile/Edit");
+  };
+
+  const onLogout = async () => {
     try {
-      const permission = fromCamera
-        ? await ImagePicker.requestCameraPermissionsAsync()
-        : await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-      const { status } = permission;
-
-      if (status !== "granted") {
-        const message = fromCamera
-          ? "Sorry, we need camera permissions to make this work!"
-          : "Sorry, we need camera roll permissions to make this work!";
-
-        alert(message);
-
-        return;
-      }
-
-      const imagePickerOptions = {
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-
-        allowsEditing: true,
-
-        aspect: [4, 3] as [number, number],
-
-        quality: 1,
-      };
-
-      const result = fromCamera
-        ? await ImagePicker.launchCameraAsync(imagePickerOptions)
-        : await ImagePicker.launchImageLibraryAsync(imagePickerOptions);
-
-      if (!result.canceled) {
-        const selectedImage = result.assets[0];
-
-        try {
-          const response = await updateUserAvatar(selectedImage.uri);
-        } catch (error) {
-          console.log(error);
-
-          showFlashMessage(
-            "danger",
-            "Erreur lors de la mise à jour de l'avatar"
-          );
-        }
-      }
+      await SecureStore.deleteItemAsync("user");
+      showFlashMessage("danger", "Vous vous êtes déconnecté de votre compte");
+      router.replace("/auth/login");
     } catch (error) {
-      console.log(error);
-      showFlashMessage("danger", "Erreur lors de la sélection de l'image");
+      showFlashMessage(
+        "danger",
+        "Une erreur est survenue lors de la déconnexion"
+      );
     }
   };
 
@@ -97,23 +115,23 @@ const index = () => {
       <StatusBar style="light" />
       <View className=" flex-1 p-4 relative">
         <View className="flex-row justify-between items-center  mt-6">
-          <View>
+          {/* <View>
             <Pressable
               onPress={router.back}
               className="w-14 h-14 rounded-full p-1 bg-[#53565a] justify-center items-center"
             >
               <AntDesign name="arrowleft" size={24} color={"white"} />
             </Pressable>
-          </View>
+          </View> */}
 
-          <View>
+          {/* <View>
             <Pressable
               onPress={() => pickImage(true)}
               className="w-14 h-14 rounded-full p-1 bg-[#53565a] justify-center items-center"
             >
               <AntDesign name="camera" size={24} color={"white"} />
             </Pressable>
-          </View>
+          </View> */}
         </View>
 
         <View className="justify-center items-center">
@@ -143,32 +161,23 @@ const index = () => {
         </View>
 
         <ProfileInlineMenu
-          background="bg-red-900"
           icon={"user"}
           text="Editer mon profil"
+          onPress={goProfileEdit}
         />
-        <ProfileInlineMenu
-          icon={"heart"}
-          background="#d0d2ee"
-          text="Mes favoris"
-        />
-        <ProfileInlineMenu
-          icon={"settings"}
-          background="#efcfbf"
-          text="Paramètres"
-        />
+        <ProfileInlineMenu icon={"heart"} text="Mes favoris" />
+        <ProfileInlineMenu icon={"settings"} text="Paramètres" />
 
         <View className="border border-gray-100" />
 
-        <ProfileInlineMenu
-          icon={"share"}
-          background="#cdcdcd"
-          text="Inviter un ami"
-        />
-        <ProfileInlineMenu
-          icon={"message-square"}
-          background="#cdcdcd"
-          text="Aides"
+        <ProfileInlineMenu icon={"share"} text="Inviter un ami" />
+        <ProfileInlineMenu icon={"message-square"} text="Aides" />
+
+        <FormButton
+          label="Me déconnecter"
+          onSubmit={onLogout}
+          isSubmitting={false}
+          backgroundColor="bg-red-800"
         />
       </View>
     </View>

@@ -5,6 +5,8 @@ import { IFood } from "@/interfaces/IFood";
 import { router } from "expo-router";
 
 const LatestFoodItem = ({ food }: { food: IFood }) => {
+  const imageUri = `${process.env.EXPO_PUBLIC_STORAGE_URL}${food.default_image}`;
+
   return (
     <TouchableOpacity
       style={{ elevation: 1, width: 250 }}
@@ -18,7 +20,7 @@ const LatestFoodItem = ({ food }: { food: IFood }) => {
     >
       <Image
         source={{
-          uri: `https://www.inspiredtaste.net/wp-content/uploads/2023/11/Fluffy-Spanish-Rice-1-1200.jpg`,
+          uri: imageUri,
         }}
         resizeMode="cover"
         className="rounded-tr-lg rounded-tl-lg w-full h-48"

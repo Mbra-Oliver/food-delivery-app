@@ -14,6 +14,7 @@ export interface IFood {
   name: string;
   description: string;
   price: number;
+  default_image: string;
   status: string;
   pivot: any;
   restaurant_id: number;

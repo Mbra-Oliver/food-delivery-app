@@ -7,6 +7,7 @@ import LoadingAreaIndicator from "@/components/UI/LoadingAreaIndicator";
 import { getAllOrders } from "@/services/orders.services";
 import { IOrder } from "@/interfaces/IOrder";
 import { StatusBar } from "expo-status-bar";
+import Empty from "@/components/Cart/Empty";
 
 const page = () => {
   const [orders, setOrders] = useState<Array<IOrder>>([]);
@@ -48,6 +49,14 @@ const page = () => {
     setIsRefresh(true);
   };
 
+  if (orders.length == 0) {
+    return (
+      <Empty
+        title="Oops, aucune donnée"
+        message="Aucune commande enregistrer."
+      />
+    );
+  }
   return (
     <SafeAreaView className="flex-1">
       <StatusBar style="dark" />

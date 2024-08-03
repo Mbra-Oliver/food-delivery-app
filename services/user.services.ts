@@ -3,6 +3,7 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 const baseUrl = process.env.EXPO_PUBLIC_API_URL;
 import * as FileSystem from "expo-file-system";
+import axiosInstance from "./base.services";
 
 export async function saveUser(data: any) {
   if (!baseUrl) {
@@ -82,6 +83,28 @@ export async function logUser(data: any) {
   } catch (error: any) {
     console.log(error);
 
+    if (error.response) {
+      throw new Error(`Erreur HTTP`);
+    } else if (error.request) {
+      throw new Error("Pas de réponse reçue du serveur");
+    } else {
+      throw new Error(`Erreur lors de la requête : ${error.message}`);
+    }
+  }
+}
+
+export async function updateProfil(data: any) {
+  if (!baseUrl) {
+    throw new Error("L'URL de l'API n'est pas définie");
+  }
+
+  const endPoint = APP_END_POINTS.user.updateProfile;
+
+  try {
+    const response = await axiosInstance.post(endPoint, data);
+
+    return response.data;
+  } catch (error: any) {
     if (error.response) {
       throw new Error(`Erreur HTTP`);
     } else if (error.request) {
