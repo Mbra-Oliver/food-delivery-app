@@ -40,7 +40,11 @@ const FoodCardList = () => {
   }, []);
 
   if (loading) {
-    return <LoadingAreaIndicator />;
+    return (
+      <View className="flex-1 justify-center items-center">
+        <Text>Récupération des données en cours...</Text>
+      </View>
+    );
   }
 
   return (
