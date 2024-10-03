@@ -42,21 +42,21 @@ const index = () => {
       }
       const resultData = result.data;
 
+      console.log(resultData);
       if (result.status_code === 200) {
         handleLogin(resultData.token, JSON.stringify(resultData.user));
         router.replace({
           pathname: "/(tabs)",
         });
 
-        //Afficher le message
-
         showFlashMessage("success", "Bon retour");
       } else {
         setErrorEmail(result.message.email);
       }
-    } catch (error) {
+    } catch (error: any) {
       setErrorEmail(
-        "une erreur est survenue lors de la connexion a votre compte"
+        error.message ||
+          "une erreur est survenue lors de la connexion a votre compte"
       );
     }
   };

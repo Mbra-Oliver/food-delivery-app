@@ -72,6 +72,8 @@ export async function logUser(data: any) {
     throw new Error("L'URL de l'API n'est pas définie");
   }
 
+  console.log(baseUrl);
+
   try {
     const response = await axios.post(`${baseUrl}user/login`, data, {
       headers: {
@@ -82,7 +84,8 @@ export async function logUser(data: any) {
     return response.data;
   } catch (error: any) {
     if (error.response) {
-      throw new Error(`Erreur HTTP`);
+      console.log(error.response.data.message);
+      throw new Error(error.response.data.message);
     } else if (error.request) {
       throw new Error("Pas de réponse reçue du serveur");
     } else {
