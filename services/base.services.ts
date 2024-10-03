@@ -17,7 +17,7 @@ export const setBaseUrl = (url: string) => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     try {
-      const token = await SecureStore.getItem("FOOD_USER_TOKEN");
+      const token = await SecureStore.getItemAsync("FOOD_USER_TOKEN");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

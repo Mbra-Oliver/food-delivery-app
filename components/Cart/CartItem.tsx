@@ -10,13 +10,15 @@ const CartItem = ({ food, quantity }: { food: IFood; quantity: number }) => {
     updateItemQuantity(food.id, value);
   };
 
+  const imageUri = `${process.env.EXPO_PUBLIC_STORAGE_URL}${food.default_image}`;
+
   return (
     <View className="flex-row items-center justify-between pb-4 border-b border-gray-200">
       <View>
         <Image
           className=" w-20 h-20 border-2  rounded-full"
           source={{
-            uri: "https://www.inspiredtaste.net/wp-content/uploads/2023/11/Fluffy-Spanish-Rice-1-1200.jpg",
+            uri: imageUri,
           }}
           resizeMode="cover"
         />

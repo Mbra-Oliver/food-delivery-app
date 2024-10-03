@@ -81,8 +81,6 @@ export async function logUser(data: any) {
 
     return response.data;
   } catch (error: any) {
-    console.log(error);
-
     if (error.response) {
       throw new Error(`Erreur HTTP`);
     } else if (error.request) {

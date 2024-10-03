@@ -19,7 +19,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: APP_COLORS.main,
         headerShown: false,
       }}
-      initialRouteName="explore/index"
+      backBehavior="history"
     >
       <Tabs.Screen
         name="index"
