@@ -46,6 +46,17 @@
         }
       ],
       [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": true
+          },
+          "android": {
+            "newArchEnabled": true
+          }
+        }
+      ],
+      [
         "expo-location",
         {
           "isAndroidForegroundServiceEnabled": "Allow $(PRODUCT_NAME) to use your location."
@@ -63,7 +74,8 @@
           "photosPermission": "Autoriser $(PRODUCT_NAME) à accéder à votre gallerie pour modifier votre photo de profil."
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-build-properties"
     ],
     "experiments": {
       "typedRoutes": true
