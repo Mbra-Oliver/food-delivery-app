@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { fetchFoodCategories } from "@/services/foods-cateogires.services";
 import LoadingAreaIndicator from "./UI/LoadingAreaIndicator";
@@ -36,13 +36,15 @@ const FoodCategoriesList = () => {
   }
 
   return (
-    <View className="flex flex-row flex-wrap ">
-      {categories.map((item: any) => (
-        <View key={item.id} className="w-1/4  p-2">
-          <SmallTuileCategory categorie={item} />
-        </View>
-      ))}
-    </View>
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      data={categories}
+      keyExtractor={({ item }: { item: any }) => item}
+      renderItem={({ item }: { item: any }) => (
+        <SmallTuileCategory categorie={item} />
+      )}
+    />
   );
 };
 

@@ -16,7 +16,7 @@ import {
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={styles.root} className="bg-white">
+    <SafeAreaView style={styles.root} className="bg-primary">
       <StatusBar />
       <View className="mt-10 gap-4 px-4 mb-4">
         <UserProfile />

@@ -6,10 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#48cd64",
+        primary: "#f5f5f5",
+        "btn-primary": "#48cd64",
       },
       backgroundColor: {
-        primary: "#48cd64",
+        "btn-primary": "#48cd64",
         pink: "#feebe2",
       },
     },
