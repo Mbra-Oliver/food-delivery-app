@@ -59,61 +59,77 @@ const index = () => {
           />
         </View>
         <View className="px-6 py-4 rounded-tl-[30]  rounded-tr-[30] bg-white flex-1">
-          <View className="flex-row items-center justify-between gap-2 mb-4">
-            <View>
-              <View className="gap-2">
+          <View className="flex-1">
+            <View className="flex-row items-center justify-between gap-2 mb-4">
+              <View>
+                <View className="gap-2">
+                  <Text
+                    numberOfLines={4}
+                    style={{ fontFamily: "Jonesy" }}
+                    className="flex-wrap"
+                  >
+                    {food.restaurant.name}
+                  </Text>
+                  <Text
+                    style={{ fontFamily: "Jonesy" }}
+                    className="text-xs text-gray-600"
+                  >
+                    {" "}
+                    {food.restaurant.email}
+                  </Text>
+                </View>
+
                 <Text
-                  numberOfLines={4}
+                  className="text-2xl mt-4"
                   style={{ fontFamily: "Jonesy" }}
-                  className="flex-wrap"
                 >
-                  {food.restaurant.name}
+                  {food.name}
                 </Text>
+              </View>
+              <View>
+                <Text style={{ fontFamily: "Jonesy" }}>
+                  <Text
+                    className="font-extrabold text-xl "
+                    style={{ fontFamily: "Jonesy" }}
+                  >
+                    {food.price}
+                  </Text>{" "}
+                  CFA
+                </Text>
+              </View>
+            </View>
+
+            <FoodCookDeliveryInfo />
+
+            <View className="mt-8">
+              <View>
                 <Text
                   style={{ fontFamily: "Jonesy" }}
-                  className="text-xs text-gray-600"
+                  className="text-xl text-gray-500"
                 >
-                  {" "}
-                  {food.restaurant.email}
+                  Description
                 </Text>
               </View>
 
-              <Text className="text-2xl mt-4" style={{ fontFamily: "Jonesy" }}>
-                {food.name}
-              </Text>
-            </View>
-            <View>
-              <Text style={{ fontFamily: "Jonesy" }}>
-                <Text
-                  className="font-extrabold text-xl "
-                  style={{ fontFamily: "Jonesy" }}
-                >
-                  {food.price}
-                </Text>{" "}
-                CFA
-              </Text>
-            </View>
-          </View>
-
-          <FoodCookDeliveryInfo />
-
-          <View className="mt-8">
-            <View>
-              <Text
-                style={{ fontFamily: "Jonesy" }}
-                className="text-xl text-gray-500"
+              <ScrollView
+                className="h-[200]"
+                showsVerticalScrollIndicator={false}
               >
-                Description
-              </Text>
+                <View className="flex-row gap-2 mb-4 ">
+                  <Text className="text-xl" style={{ fontFamily: "Jonesy" }}>
+                    {food.description} Lorem ipsum, dolor sit amet consectetur
+                    adipisicing elit. Accusantium repellat doloribus, voluptatem
+                    quas veniam officiis aperiam error quos dolorum qui id ad in
+                    iste. Minus qui aliquid totam laudantium distinctio? Lorem
+                    ipsum dolor, sit amet consectetur adipisicing elit.
+                    Voluptatibus ipsa provident similique laudantium ipsum,
+                    animi repellat distinctio exercitationem quidem dolores
+                    dolore magnam vel illum tempora earum! Laborum nisi
+                    repellendus qui?
+                  </Text>
+                </View>
+              </ScrollView>
             </View>
-
-            <ScrollView>
-              <View className="flex-row gap-2 mb-4 ">
-                <Text className="text-xl" style={{ fontFamily: "Jonesy" }}>
-                  {food.description}
-                </Text>
-              </View>
-            </ScrollView>
           </View>
           <View>
             {/* Mettre en bas de l'ecran */}
