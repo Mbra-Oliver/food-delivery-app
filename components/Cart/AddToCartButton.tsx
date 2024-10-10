@@ -33,7 +33,7 @@ const AddToCartButton = ({ foodData }: { foodData: IFood }) => {
     <Pressable
       disabled={disabled}
       onPress={addToCart}
-      className="flex-1 bg-primary p-4 flex-row justify-center rounded-md items-center"
+      className="flex-1 bg-primary-green p-4 flex-row justify-center rounded-md items-center"
     >
       <Text className="text-white text-xl ">Ajouter au panier </Text>
       <Text className="text-white text-xl font-bold">{foodAmount}</Text>
