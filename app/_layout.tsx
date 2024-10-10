@@ -2,7 +2,6 @@ import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useContext, useEffect } from "react";
-
 import "../global.css";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import FlashMessage from "react-native-flash-message";
@@ -13,24 +12,23 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { CartContextProvider } from "@/helpers/providers/CartContextProvider";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { isLogged } = useContext(AuthContext);
-
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    Lato: require("../assets/fonts/Lato-Regular.ttf"),
+
+  const [fontsLoaded] = useFonts({
+    Jonesy: require("@/assets/fonts/Jonesy.ttf"),
   });
 
   useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 

@@ -2,7 +2,6 @@ import { View, Text, Pressable, Image, TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { AuthContext } from "@/helpers/providers/AppProviders";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoadingAreaIndicator from "./UI/LoadingAreaIndicator";
 import * as SecureStore from "expo-secure-store";
 import { IUser } from "@/interfaces/IUser";
@@ -40,25 +39,15 @@ const UserProfile = () => {
   return (
     <View className="flex-row items-center justify-between mb-4">
       <View className="flex-row items-center gap-4 ">
-        <Image
-          source={{
-            uri: `https://ui-avatars.com/api/?background=48cd64&color=fff&name=${user.lastname}`,
-          }}
-          className="h-16 w-16 rounded-full"
-        />
-        <View className=" gap-2">
-          <Text> Adresse de livraison</Text>
-          <View className="flex-row items-center gap-1">
-            <Ionicons name="location" size={18} color="black" />
-            <Text className="font-bold text-xl">Adresse non définie</Text>
-          </View>
-        </View>
+        <Text className="text-xl" style={{ fontFamily: "Jonesy" }}>
+          Bonjour Oliver Mbra
+        </Text>
       </View>
 
       <View className="flex-row gap-2 items-center">
         <TouchableOpacity
           onPress={() => router.navigate("/pages/cart")}
-          className="border border-gray-200 rounded-md p-2 relative"
+          className=" p-2 "
         >
           <Feather name="shopping-cart" size={24} color="gray" />
           {items.length >= 1 && (

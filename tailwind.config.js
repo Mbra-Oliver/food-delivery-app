@@ -7,11 +7,17 @@ module.exports = {
     extend: {
       colors: {
         primary: "#f5f5f5",
-        "btn-primary": "#48cd64",
+        "primary-green": "#48cd64",
       },
       backgroundColor: {
-        "btn-primary": "#48cd64",
+        "primary-green": "#48cd64",
         pink: "#feebe2",
+      },
+      fontSize: {
+        normal: "14px",
+      },
+      fontFamily: {
+        Jonesy: ["Jonesy"],
       },
     },
   },

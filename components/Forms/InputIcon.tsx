@@ -36,6 +36,7 @@ const TextInputIcon = ({
           onBlur={onBlur(name)}
           value={value}
           readOnly={disabledField}
+          autoCapitalize="none"
         />
       </View>
     </>

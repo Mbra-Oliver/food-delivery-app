@@ -21,6 +21,8 @@ import Empty from "@/components/Cart/Empty";
 import { CartContext } from "@/helpers/providers/CartContextProvider";
 import { saveOrder } from "@/services/orders.services";
 import { showFlashMessage } from "@/helpers/alertMessage";
+import { APP_COLORS } from "@/constants/Colors";
+import OrderResume from "@/components/Cart/OrderResume";
 
 const index = () => {
   const { items, clearCart } = useContext(CartContext);
@@ -53,10 +55,11 @@ const index = () => {
           "Votre commande a été enregistrer avec succès"
         );
 
-        router.navigate({
-          pathname: "/pages/orders/status/[status]",
-          params: { status: "SUCCESS" },
-        });
+        router.replace("/");
+        // router.navigate({
+        //   pathname: "/pages/orders/status/[status]",
+        //   params: { status: "SUCCESS" },
+        // });
 
         clearCart();
       }
@@ -65,32 +68,18 @@ const index = () => {
 
   if (items.length === 0) return <Empty />;
   return (
-    <SafeAreaView className="flex-1 relative">
-      <View className="h-full mt-4">
-        <View className="px-4">
-          <View className="flex-row mb-4 gap-10 items-center">
-            <Pressable onPress={router.back}>
-              <AntDesign name="arrowleft" color="black" size={30} />
-            </Pressable>
-            <Text className="text-2xl uppercase text-center">Votre panier</Text>
-          </View>
-
-          <View className="bg-primary border-green-400 rounded-md flex justify-center p-4 gap-2 mb-4">
-            <Text>Livraison à</Text>
-            <View className="flex-row items-center justify-between">
-              <Text className="font-bold text-xl text-black">
-                242 abidjan route 30
-              </Text>
-              <Pressable>
-                <AntDesign name="down" color={"black"} size={25} />
-              </Pressable>
-            </View>
-          </View>
+    <SafeAreaView className="flex-1  bg-primary">
+      <View className=" px-4 bg-primary h-full w-full relative">
+        <View className="flex-row mb-4 gap-2 items-center">
+          <Pressable onPress={router.back}>
+            <AntDesign name="arrowleft" color={APP_COLORS.main} size={24} />
+          </Pressable>
+          <Text className="text-2xl text-center font-semibold ">Panier</Text>
         </View>
+
         <ScrollView
-          style={{ elevation: 1 }}
           showsVerticalScrollIndicator={false}
-          contentContainerClassName="px-4 pb-28 gap-2"
+          contentContainerClassName="mb-4 gap-2"
         >
           {items.map((food) => (
             <CartItem
@@ -99,24 +88,10 @@ const index = () => {
               quantity={food.quantity}
             />
           ))}
-
-          <View className="gap-2 p-4 bg-gray-100 rounded-sm">
-            <View className="flex-row items-center justify-between">
-              <Text>Commandes</Text>
-              <Text className="text-xl">{totalPrice}</Text>
-            </View>
-            <View className="flex-row items-center justify-between">
-              <Text>Frais livraison</Text>
-              <Text className="text-xl">0</Text>
-            </View>
-            <View className="flex-row items-center justify-between">
-              <Text className="font-bold">Total</Text>
-              <Text className="text-xl font-bold">{totalPrice}</Text>
-            </View>
-          </View>
         </ScrollView>
 
-        <View className="absolute pt-10 px-4 flex-row mb-12 justify-between  gap-4 bottom-0 ">
+        <View className="absolute mx-4 my-4 gap-6 bottom-0 w-full ">
+          <OrderResume totalPrice={totalPrice} />
           <ComfirmPayment isSubmitting={isSubmitting} onPress={handleOrder} />
         </View>
       </View>

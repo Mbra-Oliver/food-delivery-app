@@ -18,8 +18,13 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: APP_COLORS.main,
         headerShown: false,
+        tabBarLabelStyle: {
+          fontFamily: "Jonesy",
+          fontSize: 14,
+        },
       }}
       backBehavior="history"
+      initialRouteName="index"
     >
       <Tabs.Screen
         name="index"
@@ -53,6 +58,7 @@ export default function TabLayout() {
         name="orders/index"
         options={{
           title: "Commandes",
+
           tabBarIcon: ({ color, focused }) => (
             <MaterialIcons
               name="list-alt"

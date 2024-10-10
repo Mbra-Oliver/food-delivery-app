@@ -42,10 +42,10 @@ const FoodListItem = ({ food }: { food: IFood }) => {
         />
 
         <Pressable
-          className="absolute right-0 bg-primary p-2 rounded-md"
+          className="absolute right-0 bg-primary-green p-3 rounded-full"
           onPress={addToCart}
         >
-          <AntDesign name="shoppingcart" size={24} color="white" />
+          <AntDesign name="shoppingcart" size={22} color="white" />
         </Pressable>
       </View>
 

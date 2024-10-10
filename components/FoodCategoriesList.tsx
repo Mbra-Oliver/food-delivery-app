@@ -32,7 +32,11 @@ const FoodCategoriesList = () => {
   }, []);
 
   if (loading) {
-    return <LoadingAreaIndicator />;
+    return (
+      <View className="flex-1 h-[100]">
+        <LoadingAreaIndicator />
+      </View>
+    );
   }
 
   return (
@@ -40,9 +44,9 @@ const FoodCategoriesList = () => {
       horizontal
       showsHorizontalScrollIndicator={false}
       data={categories}
-      keyExtractor={({ item }: { item: any }) => item}
+      keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }: { item: any }) => (
-        <SmallTuileCategory categorie={item} />
+        <SmallTuileCategory key={item.id} categorie={item} />
       )}
     />
   );

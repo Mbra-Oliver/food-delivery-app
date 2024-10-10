@@ -11,14 +11,14 @@ const ComfirmPayment = ({
 }) => {
   // Contenu conditionnel basé sur l'état de soumission
   const content = isSubmitting ? (
-    <View style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
+    <View className="flex-row items-center gap-6  ">
       <View className="animate-spin">
         <Fontisto name="spinner" size={24} color="white" />
       </View>
       <Text style={{ color: "white" }}>Enregistrement en cours...</Text>
     </View>
   ) : (
-    <View style={{ alignItems: "center", flexDirection: "row" }}>
+    <View className="flex-row items-center ">
       <AntDesign
         name="shoppingcart"
         color="white"
@@ -33,7 +33,9 @@ const ComfirmPayment = ({
     <Pressable
       disabled={isSubmitting}
       onPress={onPress}
-      className={`flex-1  bg-primary p-4 flex-row justify-center rounded-md gap-4 items-center`}
+      className={`flex-1 ${
+        isSubmitting ? "bg-neutral-500" : "bg-primary-green"
+      }  p-4 flex-row justify-center rounded-md gap-4 items-center`}
     >
       {content}
     </Pressable>

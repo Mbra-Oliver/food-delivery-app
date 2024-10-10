@@ -6,32 +6,25 @@ import { showFlashMessage } from "@/helpers/alertMessage";
 const OrderCoupon = () => {
   const test = async () => {
     try {
-      await SecureStore.deleteItemAsync("FOOD_USER_TOKEN");
-      await SecureStore.deleteItemAsync("FOOD_USER");
-      showFlashMessage("success", "Vous vous êtes déconnecté");
-      return router.replace("/auth/login");
-    } catch (error) {
-      // Handle errors from SecureStore.deleteItemAsync
-      console.error("Error deleting items from SecureStore:", error);
-      // Optionally show an error message
-      showFlashMessage("error", "Erreur lors de la déconnexion");
-      // Handle or log the error as needed
-    }
+      showFlashMessage("warning", "Maintenance système en cours...");
+    } catch (error) {}
   };
 
   return (
-    <View className="p-4 bg-black rounded-xl flex-row justify-between items-center">
-      <View className="flex-1">
+    <View className="p-4 bg-black rounded-xl flex-row justify-between items-center gap-2 ">
+      <View className="flex-1 ">
         <Text
-          className="text-white"
+          className="text-white w-full"
+          style={{ fontFamily: "Jonesy" }}
           numberOfLines={2}
-          style={{ lineHeight: 30 }}
         >
           Vous avez 2x coupon de réservation gratuite !
         </Text>
       </View>
       <Pressable onPress={test} className="bg-[#48cd64] rounded-md p-4">
-        <Text className="text-white font-bold">Commander</Text>
+        <Text className="text-white" style={{ fontFamily: "Jonesy" }}>
+          Commander
+        </Text>
       </Pressable>
     </View>
   );

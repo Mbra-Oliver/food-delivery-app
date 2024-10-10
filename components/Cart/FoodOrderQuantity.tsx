@@ -10,15 +10,20 @@ const FoodOrderQuantity = ({
   onPressQuantity: any;
 }) => {
   return (
-    <View className=" bg-[rgb(231,234,243)] flex-row items-center gap-6 px-2  rounded-full w-[100]">
-      <Pressable onPress={() => onPressQuantity(-1)}>
-        <Text className=" text-black text-2xl">
-          <AntDesign name="minus" size={16} />
+    <View className="items-center gap-2">
+      <Pressable onPress={() => onPressQuantity(1)}>
+        <Text className=" text-black text-3xl">
+          <AntDesign name="plus" size={16} />
         </Text>
       </Pressable>
-      <Text className=" text-black text-xl">{quantity}</Text>
-      <Pressable onPress={() => onPressQuantity(1)}>
-        <AntDesign name="plus" size={16} />
+
+      <View className="bg-primary-green aspect-square rounded-lg p-2 justify-center items-center ">
+        <Text className="  text-xl text-white font-semibold ">{quantity}</Text>
+      </View>
+      <Pressable onPress={() => onPressQuantity(-1)}>
+        <Text className=" text-black text-3xl font-bold">
+          <AntDesign name="minus" size={16} />
+        </Text>
       </Pressable>
     </View>
   );

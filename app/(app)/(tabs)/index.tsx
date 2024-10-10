@@ -1,5 +1,6 @@
 import FoodCardList from "@/components/FoodCardList";
 import FoodCategoriesList from "@/components/FoodCategoriesList";
+import FoodPlateauOrder from "@/components/FoodPlateauOrder";
 import OrderCoupon from "@/components/OrderCoupon";
 import SearchInput from "@/components/SearchInput";
 import SmallTuileCategory from "@/components/SmallTuileCategory";
@@ -22,16 +23,13 @@ export default function HomeScreen() {
         <UserProfile />
         <SearchInput />
 
-        {/* <OrderCoupon /> */}
+        <OrderCoupon />
       </View>
-      <ScrollView
-        className="px-4"
-        showsVerticalScrollIndicator={false}
-        contentContainerClassName=" "
-      >
+      <ScrollView className="px-4 mb-1" showsVerticalScrollIndicator={false}>
         <FoodCategoriesList />
 
         <FoodCardList />
+        <FoodPlateauOrder />
       </ScrollView>
     </SafeAreaView>
   );

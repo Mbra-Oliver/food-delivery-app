@@ -41,8 +41,10 @@ const FoodCardList = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <Text>Récupération des données en cours...</Text>
+      <View className="flex-1 justify-center items-center h-[300]">
+        <Text style={{ fontFamily: "Jonesy" }}>
+          Récupération des données en cours...
+        </Text>
       </View>
     );
   }
@@ -50,19 +52,26 @@ const FoodCardList = () => {
   return (
     <View className="mt-6 gap-4">
       <View className="flex-row items-center justify-between">
-        <Text className="text-2xl">Les plus commandés</Text>
+        <Text className="text-xl" style={{ fontFamily: "Jonesy" }}>
+          Les plus commandés
+        </Text>
         <TouchableOpacity>
-          <Text className="text-[#48cd64] font-bold">Les plus proches</Text>
+          <Text
+            className="text-primary-green font-semibold "
+            style={{ fontFamily: "Jonesy" }}
+          >
+            Les plus proches
+          </Text>
         </TouchableOpacity>
       </View>
 
       <FlatList
         data={foods}
-        keyExtractor={(item: IFood) => item.id.toString()}
+        keyExtractor={(item) => item.id.toString()}
         horizontal
         contentContainerClassName="gap-4 mb-4"
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <LatestFoodItem food={item} />}
+        renderItem={({ item }) => <LatestFoodItem key={item.id} food={item} />}
       />
     </View>
   );

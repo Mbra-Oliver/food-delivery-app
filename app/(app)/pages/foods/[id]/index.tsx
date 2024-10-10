@@ -1,7 +1,7 @@
 import { View, Text, Image, Pressable, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import FoodInformationIconText from "@/components/Foods/FoodInformationIconText";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { router, useLocalSearchParams } from "expo-router";
 import { showFlashMessage } from "@/helpers/alertMessage";
@@ -10,6 +10,8 @@ import AddToCartButton from "@/components/Cart/AddToCartButton";
 import LoadingAreaIndicator from "@/components/UI/LoadingAreaIndicator";
 import { IFood } from "@/interfaces/IFood";
 import { getOneFood } from "@/services/foods.services";
+import { SafeAreaView } from "react-native-safe-area-context";
+import FoodCookDeliveryInfo from "@/components/Foods/FoodCookDeliveryInfo/FoodCookDeliveryInfo";
 
 const index = () => {
   const { id } = useLocalSearchParams();
@@ -45,78 +47,123 @@ const index = () => {
 
   const imageUri = `${process.env.EXPO_PUBLIC_STORAGE_URL}${food.default_image}`;
   return (
-    <View className="flex-1 bg-[#2a2d32]">
-      <StatusBar style="light" />
-      <View className=" flex-1 p-4 relative">
-        <View className="flex-row justify-between items-center  mt-6">
-          <View>
-            <Pressable
-              onPress={router.back}
-              className="w-14 h-14 rounded-full p-1 bg-[#53565a] justify-center items-center"
-            >
-              <AntDesign name="arrowleft" size={24} color={"white"} />
-            </Pressable>
-          </View>
-
-          <View>
-            <Pressable
-              onPress={() =>
-                showFlashMessage("success", "Produit ajouté au favoris")
-              }
-              className="w-14 h-14 rounded-full p-1 bg-white justify-center items-center"
-            >
-              <AntDesign name="heart" size={24} color={"red"} />
-            </Pressable>
-          </View>
-        </View>
-      </View>
-      <View
-        className="bg-white rounded-tl-3xl rouded-tr-lg rounded-tr-3xl p-4 relative"
-        style={{ flex: 2 }}
-      >
-        <View className="flex-1 relative">
-          <View className="flex items-center justify-center mb-20">
-            <View className="absolute  -top-44 index">
-              <Image
-                className=" w-[200] h-[200] border-2 border-[#2a2d32] rounded-full"
-                source={{
-                  uri: imageUri,
-                }}
-                resizeMode="cover"
-              />
-            </View>
-          </View>
-
-          <ScrollView
-            contentContainerClassName="pb-20"
-            showsVerticalScrollIndicator={false}
-          >
-            <Text className="font-bold text-3xl text-center" numberOfLines={2}>
-              {food.name}
-            </Text>
-
-            <View className="flex-row gap-2 items-center justify-center mt-4 mb-4">
-              <FoodInformationIconText text="10 min." imageNumb="foodIcon1" />
-              <FoodInformationIconText
-                text="280 calories."
-                imageNumb="foodIcon2"
-              />
-              <FoodInformationIconText text="6.9 /10." imageNumb="foodIcon3" />
-            </View>
-
+    <SafeAreaView className="flex-1">
+      <View className="bg-primary h-full w-full">
+        <View className="h-[300px]"></View>
+        <View className="px-6 py-4 rounded-tl-[30]  rounded-tr-[30] bg-white flex-1 ">
+          <View className="flex-row items-center justify-between gap-2 mb-4">
             <View>
-              <Text numberOfLines={40} className="text-xl text-gray-600">
-                {food.description}
+              <View className="gap-2">
+                <Text
+                  numberOfLines={4}
+                  style={{ fontFamily: "Jonesy" }}
+                  className="flex-wrap"
+                >
+                  {food.restaurant.name}
+                </Text>
+                <Text
+                  style={{ fontFamily: "Jonesy" }}
+                  className="text-xs text-gray-600"
+                >
+                  {" "}
+                  {food.restaurant.email}
+                </Text>
+              </View>
+
+              <Text className="text-2xl" style={{ fontFamily: "Jonesy" }}>
+                {food.name}
               </Text>
             </View>
-          </ScrollView>
-
-          <View className="absolute pt-10 flex-row justify-between  gap-4 bottom-0 ">
-            <AddToCartButton foodData={food} />
+            <View>
+              <Text style={{ fontFamily: "Jonesy" }}>
+                <Text
+                  className="font-extrabold text-xl "
+                  style={{ fontFamily: "Jonesy" }}
+                >
+                  {food.price}
+                </Text>{" "}
+                CFA
+              </Text>
+            </View>
           </View>
+
+          <FoodCookDeliveryInfo />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
+
+    // <View className="flex-1 bg-[#2a2d32]">
+    //   <StatusBar style="light" />
+    //   <View className=" flex-1 p-4 relative">
+    //     <View className="flex-row justify-between items-center  mt-6">
+    //       <View>
+    //         <Pressable
+    //           onPress={router.back}
+    //           className="w-14 h-14 rounded-full p-1 bg-[#53565a] justify-center items-center"
+    //         >
+    //           <AntDesign name="arrowleft" size={24} color={"white"} />
+    //         </Pressable>
+    //       </View>
+
+    //       <View>
+    //         <Pressable
+    //           onPress={() =>
+    //             showFlashMessage("success", "Produit ajouté au favoris")
+    //           }
+    //           className="w-14 h-14 rounded-full p-1 bg-white justify-center items-center"
+    //         >
+    //           <AntDesign name="heart" size={24} color={"red"} />
+    //         </Pressable>
+    //       </View>
+    //     </View>
+    //   </View>
+    //   <View
+    //     className="bg-white rounded-tl-3xl rouded-tr-lg rounded-tr-3xl p-4 relative"
+    //     style={{ flex: 2 }}
+    //   >
+    //     <View className="flex-1 relative">
+    //       <View className="flex items-center justify-center mb-20">
+    //         <View className="absolute  -top-44 index">
+    //           <Image
+    //             className=" w-[200] h-[200] border-2 border-[#2a2d32] rounded-full"
+    //             source={{
+    //               uri: imageUri,
+    //             }}
+    //             resizeMode="cover"
+    //           />
+    //         </View>
+    //       </View>
+
+    //       <ScrollView
+    //         contentContainerClassName="pb-20"
+    //         showsVerticalScrollIndicator={false}
+    //       >
+    //         <Text className="font-bold text-3xl text-center" numberOfLines={2}>
+    //           {food.name}
+    //         </Text>
+
+    //         <View className="flex-row gap-2 items-center justify-center mt-4 mb-4">
+    //           <FoodInformationIconText text="10 min." imageNumb="foodIcon1" />
+    //           <FoodInformationIconText
+    //             text="280 calories."
+    //             imageNumb="foodIcon2"
+    //           />
+    //           <FoodInformationIconText text="6.9 /10." imageNumb="foodIcon3" />
+    //         </View>
+
+    //         <View>
+    //           <Text numberOfLines={40} className="text-xl text-gray-600">
+    //             {food.description}
+    //           </Text>
+    //         </View>
+    //       </ScrollView>
+
+    //       <View className="absolute pt-10 flex-row justify-between  gap-4 bottom-0 ">
+    //         <AddToCartButton foodData={food} />
+    //       </View>
+    //     </View>
+    //   </View>
+    // </View>
   );
 };
 

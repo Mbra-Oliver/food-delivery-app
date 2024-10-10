@@ -19,6 +19,7 @@ import { IFood } from "@/interfaces/IFood";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FoodListItem from "@/components/Foods/FoodListItem";
 import { useLocalSearchParams } from "expo-router";
+import Empty from "@/components/Cart/Empty";
 export default function ExploreIndex() {
   const [categories, setCategories] = useState([]);
   const [foods, setFoods] = useState<Array<IFood>>([]);
@@ -86,15 +87,14 @@ export default function ExploreIndex() {
 
   return (
     <SafeAreaView className="flex-1 ">
-      <StatusBar style="dark" />
-      <View className="p-4 bg-white h-full">
-        <View className="">
+      <View className="p-4 bg-primary h-full">
+        <View className="mb-4">
           <Text className="text-2xl font-semibold">Découvrez les recettes</Text>
-          <Text className="text-2xl font-semibold text-primary">
+          <Text className="text-2xl font-semibold text-primary-green">
             de chez vous
           </Text>
         </View>
-        <View className="bg-white border border-gray-200 rounded-md">
+        <View className="bg-white border border-gray-200 rounded-full">
           <Picker
             selectedValue={selectedCategorieId}
             onValueChange={(itemValue, itemIndex) =>
@@ -123,6 +123,12 @@ export default function ExploreIndex() {
             keyExtractor={(item: IFood) => item.id.toString()}
             renderItem={({ item }) => (
               <FoodListItem key={item.id} food={item} />
+            )}
+            ListEmptyComponent={() => (
+              <Empty
+                title="Aucun repas trouvé pour cette catégorie"
+                message="Changer de catégorie. Nous nous occupons de remplir le stock"
+              />
             )}
           />
         </View>

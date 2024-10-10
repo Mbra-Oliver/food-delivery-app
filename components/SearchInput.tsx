@@ -27,6 +27,7 @@ const SearchInput = () => {
           value={searchValue}
           onChangeText={(e) => setSearchValue(e)}
           onSubmitEditing={handleClick}
+          style={{ fontFamily: "Jonesy" }}
         />
         <View className="flex flex-row gap-2 items-center">
           <View className="border-r border-gray-400 h-5" />

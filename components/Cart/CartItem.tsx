@@ -13,25 +13,27 @@ const CartItem = ({ food, quantity }: { food: IFood; quantity: number }) => {
   const imageUri = `${process.env.EXPO_PUBLIC_STORAGE_URL}${food.default_image}`;
 
   return (
-    <View className="flex-row items-center justify-between pb-4 border-b border-gray-200">
-      <View>
-        <Image
-          className=" w-20 h-20 border-2  rounded-full"
-          source={{
-            uri: imageUri,
-          }}
-          resizeMode="cover"
-        />
+    <View className="flex-row items-center justify-between">
+      <View className="flex-row items-center gap-4">
+        <View
+          className="bg-white w-[100] h-[100] rounded-3xl items-center justify-center border border-gray-100"
+          style={{ elevation: 1 }}
+        >
+          <Image
+            className=" w-20 h-20 border-2 aspect-square rounded-full"
+            source={{
+              uri: imageUri,
+            }}
+            resizeMode="cover"
+          />
+        </View>
+        <View className="justify-center items-start gap-2 ">
+          <Text className="font-bold text-center text-xl">{food.name}</Text>
+          <Text className="text-center text-xs">({food.restaurant.name})</Text>
+          <Text className="text-bold">{food.price * quantity} FCFA</Text>
+        </View>
       </View>
-      <View className="justify-center items-center">
-        <Text className="font-bold text-center text-xl">{food.name}</Text>
-        <Text className="text-center mb-3">({food.restaurant.name})</Text>
-        <FoodOrderQuantity
-          onPressQuantity={manageQuantity}
-          quantity={quantity}
-        />
-      </View>
-      <Text className="text-bold">{food.price * quantity} FCFA</Text>
+      <FoodOrderQuantity onPressQuantity={manageQuantity} quantity={quantity} />
     </View>
   );
 };
