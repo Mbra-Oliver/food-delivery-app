@@ -19,7 +19,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: APP_COLORS.main,
         headerShown: false,
         tabBarLabelStyle: {
-          fontFamily: "Jonesy",
+          fontFamily: "Lato",
           fontSize: 14,
         },
       }}

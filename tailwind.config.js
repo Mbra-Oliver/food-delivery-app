@@ -17,7 +17,7 @@ module.exports = {
         normal: "14px",
       },
       fontFamily: {
-        Jonesy: ["Jonesy"],
+        Lato: ["Lato"],
       },
     },
   },

@@ -39,7 +39,7 @@ const UserProfile = () => {
   return (
     <View className="flex-row items-center justify-between mb-4">
       <View className="flex-row items-center gap-4 ">
-        <Text className="text-xl" style={{ fontFamily: "Jonesy" }}>
+        <Text className="text-xl" style={{ fontFamily: "Lato" }}>
           Bonjour Oliver Mbra
         </Text>
       </View>

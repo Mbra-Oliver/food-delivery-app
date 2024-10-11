@@ -24,7 +24,7 @@ const SmallTuileCategory = ({ categorie }: { categorie: any }) => {
         />
       </View>
 
-      <Text className="text-center" style={{ fontFamily: "Jonesy" }}>
+      <Text className="text-center" style={{ fontFamily: "Lato" }}>
         {categorie.name}
       </Text>
     </TouchableOpacity>

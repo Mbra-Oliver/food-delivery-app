@@ -5,7 +5,13 @@ import { CartContext } from "@/helpers/providers/CartContextProvider";
 import { IFood } from "@/interfaces/IFood";
 import { AntDesign } from "@expo/vector-icons";
 
-const AddToCartButton = ({ foodData }: { foodData: IFood }) => {
+const AddToCartButton = ({
+  existInCart,
+  foodData,
+}: {
+  existInCart: boolean;
+  foodData: IFood;
+}) => {
   const { addItemToCart } = useContext(CartContext);
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -22,17 +28,39 @@ const AddToCartButton = ({ foodData }: { foodData: IFood }) => {
       setDisabled(false);
     }
   };
+  let content;
+
+  if (!existInCart) {
+    content = (
+      <>
+        <AntDesign name="shoppingcart" size={24} color="white" />
+        <Text className="text-white text-xl " style={{ fontFamily: "Lato" }}>
+          Ajouter au panier{" "}
+        </Text>
+      </>
+    );
+  }
+
+  if (existInCart) {
+    content = (
+      <>
+        <AntDesign name="closecircleo" size={24} color="white" />
+        <Text className="text-white text-xl " style={{ fontFamily: "Lato" }}>
+          Déja dans le panier
+        </Text>
+      </>
+    );
+  }
 
   return (
     <Pressable
-      className="bg-primary-green p-3 flex-row items-center justify-center rounded-lg gap-4 "
+      className={`${
+        !existInCart ? "bg-primary-green" : "bg-gray-300"
+      } p-3 flex-row items-center justify-center rounded-lg gap-4`}
       disabled={disabled}
       onPress={addToCart}
     >
-      <AntDesign name="shoppingcart" size={24} color="white" />
-      <Text className="text-white text-xl " style={{ fontFamily: "Jonesy" }}>
-        Ajouter au panier{" "}
-      </Text>
+      {content}
     </Pressable>
   );
 };

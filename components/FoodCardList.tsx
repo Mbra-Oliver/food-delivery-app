@@ -42,7 +42,7 @@ const FoodCardList = () => {
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center h-[300]">
-        <Text style={{ fontFamily: "Jonesy" }}>
+        <Text style={{ fontFamily: "Lato" }}>
           Récupération des données en cours...
         </Text>
       </View>
@@ -52,13 +52,13 @@ const FoodCardList = () => {
   return (
     <View className="mt-6 gap-4">
       <View className="flex-row items-center justify-between">
-        <Text className="text-xl" style={{ fontFamily: "Jonesy" }}>
+        <Text className="text-xl" style={{ fontFamily: "Lato" }}>
           Les plus commandés
         </Text>
         <TouchableOpacity>
           <Text
             className="text-primary-green font-semibold "
-            style={{ fontFamily: "Jonesy" }}
+            style={{ fontFamily: "Lato" }}
           >
             Les plus proches
           </Text>

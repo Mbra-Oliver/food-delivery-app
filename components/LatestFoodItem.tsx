@@ -33,13 +33,13 @@ const LatestFoodItem = ({ food }: { food: IFood }) => {
           className="text-center px-2 text-neutral-500 py-1"
           numberOfLines={2}
           ellipsizeMode="tail"
-          style={{ fontFamily: "Jonesy" }}
+          style={{ fontFamily: "Lato" }}
         >
           {food.name}
         </Text>
         <Text
           className=" text-center text-xs  mt-1"
-          style={{ fontFamily: "Jonesy" }}
+          style={{ fontFamily: "Lato" }}
           numberOfLines={1}
         >
           {food.price} FCFA

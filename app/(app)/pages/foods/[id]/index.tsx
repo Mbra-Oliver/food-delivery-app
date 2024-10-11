@@ -1,5 +1,5 @@
 import { View, Text, Image, Pressable, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FoodInformationIconText from "@/components/Foods/FoodInformationIconText";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
@@ -12,12 +12,16 @@ import { IFood } from "@/interfaces/IFood";
 import { getOneFood } from "@/services/foods.services";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FoodCookDeliveryInfo from "@/components/Foods/FoodCookDeliveryInfo/FoodCookDeliveryInfo";
+import { CartContext } from "@/helpers/providers/CartContextProvider";
 
 const index = () => {
+  const { items } = useContext(CartContext);
+
   const { id } = useLocalSearchParams();
 
   const [food, setFood] = useState<IFood>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [foodInCart, setFoodInCart] = useState<boolean>(false);
 
   if (!id) return;
   useEffect(() => {
@@ -37,6 +41,11 @@ const index = () => {
     fetchFood();
   }, []);
 
+  useEffect(() => {
+    const checkFoodExist = items.some((food) => String(food.food.id) === id);
+    setFoodInCart(checkFoodExist);
+  }, [items, id]);
+
   if (loading) {
     return <LoadingAreaIndicator />;
   }
@@ -49,14 +58,21 @@ const index = () => {
   return (
     <SafeAreaView className="flex-1">
       <View className="bg-primary-green h-full w-full">
-        <View className="h-[300px] flex justify-center items-center  ">
-          <Image
-            className=" w-[200] h-[200] border-4 border-primary rounded-full"
-            source={{
-              uri: imageUri,
-            }}
-            resizeMode="cover"
-          />
+        <View className="h-[300px]  ">
+          <View className="p-8">
+            <Pressable onPress={() => router.back()}>
+              <AntDesign name="arrowleft" color={"white"} size={24} />
+            </Pressable>
+          </View>
+          <View className="flex justify-center items-center ">
+            <Image
+              className=" w-[200] h-[200] border-4 border-primary rounded-full"
+              source={{
+                uri: imageUri,
+              }}
+              resizeMode="cover"
+            />
+          </View>
         </View>
         <View className="px-6 py-4 rounded-tl-[30]  rounded-tr-[30] bg-white flex-1">
           <View className="flex-1">
@@ -65,13 +81,13 @@ const index = () => {
                 <View className="gap-2">
                   <Text
                     numberOfLines={4}
-                    style={{ fontFamily: "Jonesy" }}
+                    style={{ fontFamily: "Lato" }}
                     className="flex-wrap"
                   >
                     {food.restaurant.name}
                   </Text>
                   <Text
-                    style={{ fontFamily: "Jonesy" }}
+                    style={{ fontFamily: "Lato" }}
                     className="text-xs text-gray-600"
                   >
                     {" "}
@@ -79,18 +95,15 @@ const index = () => {
                   </Text>
                 </View>
 
-                <Text
-                  className="text-2xl mt-4"
-                  style={{ fontFamily: "Jonesy" }}
-                >
+                <Text className="text-2xl mt-4" style={{ fontFamily: "Lato" }}>
                   {food.name}
                 </Text>
               </View>
               <View>
-                <Text style={{ fontFamily: "Jonesy" }}>
+                <Text style={{ fontFamily: "Lato" }}>
                   <Text
                     className="font-extrabold text-xl "
-                    style={{ fontFamily: "Jonesy" }}
+                    style={{ fontFamily: "Lato" }}
                   >
                     {food.price}
                   </Text>{" "}
@@ -104,7 +117,7 @@ const index = () => {
             <View className="mt-8">
               <View>
                 <Text
-                  style={{ fontFamily: "Jonesy" }}
+                  style={{ fontFamily: "Lato" }}
                   className="text-xl text-gray-500"
                 >
                   Description
@@ -116,16 +129,8 @@ const index = () => {
                 showsVerticalScrollIndicator={false}
               >
                 <View className="flex-row gap-2 mb-4 ">
-                  <Text className="text-xl" style={{ fontFamily: "Jonesy" }}>
-                    {food.description} Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Accusantium repellat doloribus, voluptatem
-                    quas veniam officiis aperiam error quos dolorum qui id ad in
-                    iste. Minus qui aliquid totam laudantium distinctio? Lorem
-                    ipsum dolor, sit amet consectetur adipisicing elit.
-                    Voluptatibus ipsa provident similique laudantium ipsum,
-                    animi repellat distinctio exercitationem quidem dolores
-                    dolore magnam vel illum tempora earum! Laborum nisi
-                    repellendus qui?
+                  <Text className="text-xl" style={{ fontFamily: "Lato" }}>
+                    {food.description}
                   </Text>
                 </View>
               </ScrollView>
@@ -133,7 +138,7 @@ const index = () => {
           </View>
           <View>
             {/* Mettre en bas de l'ecran */}
-            <AddToCartButton foodData={food} />
+            <AddToCartButton existInCart={foodInCart} foodData={food} />
           </View>
         </View>
       </View>

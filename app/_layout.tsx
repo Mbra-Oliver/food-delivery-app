@@ -19,7 +19,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   const [fontsLoaded] = useFonts({
-    Jonesy: require("@/assets/fonts/Jonesy.ttf"),
+    Lato: require("@/assets/fonts/Lato-Regular.ttf"),
   });
 
   useEffect(() => {

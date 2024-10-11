@@ -15,14 +15,14 @@ const OrderCoupon = () => {
       <View className="flex-1 ">
         <Text
           className="text-white w-full"
-          style={{ fontFamily: "Jonesy" }}
+          style={{ fontFamily: "Lato" }}
           numberOfLines={2}
         >
           Vous avez 2x coupon de réservation gratuite !
         </Text>
       </View>
       <Pressable onPress={test} className="bg-[#48cd64] rounded-md p-4">
-        <Text className="text-white" style={{ fontFamily: "Jonesy" }}>
+        <Text className="text-white" style={{ fontFamily: "Lato" }}>
           Commander
         </Text>
       </Pressable>

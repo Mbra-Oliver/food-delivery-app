@@ -34,12 +34,12 @@ const FoodPlateauOrder = () => {
       <View className="flex-1 p-4 justify-center">
         <Text
           className="text-lg mb-2"
-          style={{ fontFamily: "Jonesy" }}
+          style={{ fontFamily: "Lato" }}
           numberOfLines={2}
         >
           {item.name}
         </Text>
-        <Text className="text-gray-600" style={{ fontFamily: "Jonesy" }}>
+        <Text className="text-gray-600" style={{ fontFamily: "Lato" }}>
           {item.price}
         </Text>
       </View>
@@ -57,7 +57,7 @@ const FoodPlateauOrder = () => {
   return (
     <View className="mt-6">
       <View className="flex-row justify-between items-center mb-4">
-        <Text className="text-2xl " style={{ fontFamily: "Jonesy" }}>
+        <Text className="text-2xl " style={{ fontFamily: "Lato" }}>
           Avez vous testez nos composition ?
         </Text>
       </View>

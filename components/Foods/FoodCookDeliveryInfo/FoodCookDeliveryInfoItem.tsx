@@ -21,11 +21,11 @@ const FoodCookDeliveryInfoItem = ({
     >
       <View className="gap-2 flex-row items-center">
         <Ionicons name="timer-outline" size={16} color="black" />
-        <Text className="font-semibold" style={{ fontFamily: "Jonesy" }}>
+        <Text className="font-semibold" style={{ fontFamily: "Lato" }}>
           {value}
         </Text>
       </View>
-      <Text className="text-normal " style={{ fontFamily: "Jonesy" }}>
+      <Text className="text-normal " style={{ fontFamily: "Lato" }}>
         {previewText}
       </Text>
     </View>
